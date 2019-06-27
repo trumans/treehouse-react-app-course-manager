@@ -5,21 +5,21 @@
 
 # Installing the REST API
 
-1. In a terminal window "cd" to project folder, then to the api folder
-2. Install npm modules with the command ```npm install```
-3. Create the database with the command ```npm run seed```
+1. In a terminal window navigate to the project folder, then to the api folder.
+2. Install npm modules with the command ```npm install```.
+3. Create the database with the command ```npm run seed```.
 The database will be populated with two users and three courses. 
 
 ## Resetting the database
-To reset database to its seed data:
-1. Stop the server by entering ctrl-C in the terminal window
+To reset database to its seed data
+1. Stop the server with ctrl-C in the terminal window.
 2. Delete the file fsjstd-restapi.db.
 3. Recreate the database with the command ```npm run seed```.
 4. Restart the application server with the command ```npm start```
 
 # Starting the application
 1. In a terminal windown and navigate to the project folder, then to the api folder.
-2. Enter the command ```npm start```
+2. Enter the command ```npm start```.
 If the application starts successfully the following messages appear in the console
 ```
 Express server is listening on port 5000
@@ -140,7 +140,7 @@ Delete a course
 
 ## File structure
 
-### Overall structure
+### root-level
 * api/ - REST API service
 * client/ - web app React
 * mockups/ - page layouts from project instructions
