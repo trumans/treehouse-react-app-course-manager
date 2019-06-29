@@ -21,8 +21,8 @@ To reset database to its seed data
 1. In a terminal window navigate to the project folder, then to the client folder.
 2. Install npm modules with the command ```npm install```.
 
-# Starting the application
-1. In a terminal windown and navigate to the project folder, then to the api folder.
+# Starting the API server
+1. In a terminal windown and navigate to the project folder, then to the ```api``` folder.
 2. Enter the command ```npm start```.
 If the application starts successfully the following messages appear in the console
 ```
@@ -30,6 +30,11 @@ Express server is listening on port 5000
 Executing (default): SELECT 1+1 AS result
 Connected to database
 ```
+
+# Starting the web app server
+1. In a terminal windown and navigate to the project folder, then to the ```client``` folder.
+2. Enter the command ```npm start```.
+If the application starts successfully a browser window/tab opens with ???
 
 # Routes
 
