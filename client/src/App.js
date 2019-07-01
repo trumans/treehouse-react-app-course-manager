@@ -3,24 +3,18 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 
 import Header from './Header';
+import CoursesList from './CoursesList';
 import NotFound from './NotFound';
 
 class App extends Component {
 
   state = {}
 
-  call_get_root() {
-    console.log("in call_get_root")
-    fetch("http://localhost:5000", { method: 'GET' })
+  getCourses = () => {
+    fetch("http://localhost:5000/api/courses", { method: 'GET' })
         .then(response => response.json())
-        .then(data => this.setState({ message: data }))
+        .then(data => this.setState({ courses: data.courses }))
   }
-
-/*
-  componentDidMount() {
-    this.call_get_root()
-  }
-*/
 
   render() {
     return (
@@ -28,12 +22,8 @@ class App extends Component {
         <div className="container">
           <Header />
           <Switch>
-            <Route exact path="/" render={ () => 
-              <p>
-                { "ta-da! " }
-                { this.call_get_root() } { JSON.stringify(this.state.message) }
-              </p>
-             } />
+            <Route exact path="/" render={ () => <Redirect to={`/api/courses`} /> } />
+            <Route exact path="/api/courses" render={ () => <CoursesList state={this.state} getCourses={this.getCourses} /> } />
             <Route path="/notfound" component={NotFound} />
             <Route component={NotFound} />
           </Switch>
