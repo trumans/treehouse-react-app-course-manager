@@ -12,8 +12,11 @@ class App extends Component {
         .then(data => this.setState({ message: data }))
   }
 
-  render() {
+  componentDidMount() {
     this.call_get_root()
+  }
+
+  render() {
     return (
       <div className="App">
         <p>
