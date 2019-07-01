@@ -1,7 +1,7 @@
 import React from 'react';
 import './global.css'
 
-const PageNotFound = () => {
+const NotFound = () => {
   return (
     <div class="bounds">
       <h1>Not Found</h1>
@@ -10,4 +10,4 @@ const PageNotFound = () => {
   );
 }
 
-export default PageNotFound;
+export default NotFound;

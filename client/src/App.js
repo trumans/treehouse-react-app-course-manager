@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 
 import Header from './Header';
-import PageNotFound from './PageNotFound';
+import NotFound from './NotFound';
 
 class App extends Component {
 
@@ -34,7 +34,8 @@ class App extends Component {
                 { this.call_get_root() } { JSON.stringify(this.state.message) }
               </p>
              } />
-            <Route component={PageNotFound} />
+            <Route path="/notfound" component={NotFound} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </BrowserRouter>
