@@ -34,9 +34,10 @@ class CourseTile extends Component {
   
   render() {
   	console.log("in course tile", this.props);
+  	let link = `courses/${this.props.courseId}`
   	return (
       <div class="grid-33">
-        <a class="course--module course--link" href="this.props.id">
+        <a class="course--module course--link" href={link}>
           <h4 class="course--label">Course</h4>
           <h3 class="course--title">{this.props.title}</h3>
         </a>
