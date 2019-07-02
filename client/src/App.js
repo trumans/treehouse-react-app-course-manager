@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 
 import Header from './Header';
-import CoursesList from './CoursesList';
+import Courses from './Courses';
 import NotFound from './NotFound';
 
 class App extends Component {
@@ -23,7 +23,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/api/courses`} /> } />
-            <Route exact path="/api/courses" render={ () => <CoursesList state={this.state} getCourses={this.getCourses} /> } />
+            <Route exact path="/api/courses" render={ () => <Courses state={this.state} getCourses={this.getCourses} /> } />
             <Route path="/notfound" component={NotFound} />
             <Route component={NotFound} />
           </Switch>
