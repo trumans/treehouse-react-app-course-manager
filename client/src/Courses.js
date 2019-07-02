@@ -4,29 +4,41 @@ import './global.css'
 
 class Courses extends Component {
 
-  render() {
-  	this.props.getCourses();
-  	const courses = this.props.state.courses
-  	console.log("in Courses", this.props)
+  state = {} 
 
-  	return (
-  	  <div class='bounds'>
- 
-        { courses.map((course) => <CourseTile title={course.title} courseId={course.id} /> ) }
-  	  </div>
-  	  )
-//  	{ JSON.stringify(courses) }
+  getCourses = () => {
+    fetch("http://localhost:5000/api/courses", { method: 'GET' })
+        .then(response => response.json())
+        .then(data => this.setState( { courses: data.courses } ))
+  }
+
+  componentDidMount() {
+  	this.getCourses(); 	
+  }
+
+  render() {
+  	console.log("in Courses. state is ", this.state);
+  	if (this.state.courses !== undefined) {
+  	  return (
+  	    <div class='bounds'>
+          { this.state.courses.map((course) => <CourseTile title={course.title} courseId={course.id} /> ) }
+  	    </div>
+  	    )
+  	} else {
+  		return null
+  	}
   }
 }
 
 class CourseTile extends Component {
   
   render() {
+  	console.log("in course tile", this.props);
   	return (
       <div class="grid-33">
         <a class="course--module course--link" href="this.props.id">
           <h4 class="course--label">Course</h4>
-          <h3 class="course--title">this.props.title</h3>
+          <h3 class="course--title">{this.props.title}</h3>
         </a>
       </div>
   	)
