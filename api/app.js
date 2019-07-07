@@ -1,6 +1,7 @@
 'use strict';
 
 // Load modules
+const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const sequelize = require('./models').sequelize;
@@ -30,18 +31,11 @@ const server = app.listen(app.get('port'), () => {
   console.log(`Express server is listening on port ${server.address().port}`);
 });
 
-// setup routes and related middleware
+// middleware for all requests
 app.use(express.json());
+app.use(cors());
 
-// Add response header for CORS support
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header("Access-Control-Allow-Headers", 
-               "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
+// setup routes
 const users = require('./routes/users'); 
 const courses = require('./routes/courses');
 app.use('/api/users', users);
