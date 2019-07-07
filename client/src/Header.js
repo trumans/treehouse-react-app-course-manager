@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './global.css';
 
 const Header = () => {
@@ -6,7 +7,10 @@ const Header = () => {
     <div class="header">
       <div class="bounds">
         <h1 class="header--logo">Courses</h1>
-        <nav><a class="signup" href="sign-up.html">Sign Up</a><a class="signin" href="sign-in.html">Sign In</a></nav>
+        <nav>
+          <Link class="signup" to="/api/usersignup">Sign Up</Link>
+          <Link class="signin" to="/api/usersignin">Sign In</Link>
+        </nav>
       </div>
     </div>
   );
