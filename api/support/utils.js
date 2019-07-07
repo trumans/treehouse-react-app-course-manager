@@ -41,6 +41,7 @@ const authenticateUser = (req, res, next) => {
 			if (user) {
 				if (bcryptjs.compareSync(credentials.pass, user.password)) {
 					req.currentUser = user;  // ??? return whole record ???
+					console.log(`Authentication passed for '${credentials.name}'`);
 					next();
 				} else {
 					authFail(`Authentication failed for user '${credentials.name}'`);
