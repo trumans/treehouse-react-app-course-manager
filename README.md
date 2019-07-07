@@ -36,6 +36,20 @@ Connected to database
 2. Enter the command ```npm start```.
 If the application starts successfully a browser window/tab opens with ???
 
+# Pages
+App domain is http://localhost:3000
+
+## Home page
+redirects to /api/courses
+
+## Courses
+/api/courses
+
+* Lists all courses as a set of tiles, and a New Course tile.
+* Clicking on a tile opens corresponding the Course Detail page. 
+* Clicking the New Course tile opens the Create Course page.
+
+
 # Routes
 
 **User Authentication**
@@ -51,7 +65,7 @@ Welcome message
 
 **GET /api/users**
 
-Get the current authenticated user
+Get the user with the credentials in the Authorization header
 * User authentication is required.
 * If credentials are valid:
   * Status 200 is returned
