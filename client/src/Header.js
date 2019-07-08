@@ -13,18 +13,18 @@ const Header = () => {
           authUser ?
             <React.Fragment>
               <span>Welcome, {authUser.firstName} {authUser.lastName}</span>
-              <Link class="signout" to="/signout">Sign Out</Link>
+              <Link className="signout" to="/signout">Sign Out</Link>
             </React.Fragment>
           :
             <React.Fragment>
-              <Link class="signup" to="/signup">Sign Up</Link>
-              <Link class="signin" to="/signin">Sign In</Link>
+              <Link className="signup" to="/signup">Sign Up</Link>
+              <Link className="signin" to="/signin">Sign In</Link>
             </React.Fragment>
 
         return (
-          <div class="header">
-            <div class="bounds">
-              <h1 class="header--logo">Courses</h1>
+          <div className="header">
+            <div className="bounds">
+              <h1 className="header--logo">Courses</h1>
               <nav>{nav}</nav>
             </div>
           </div>

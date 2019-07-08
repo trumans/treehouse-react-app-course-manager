@@ -59,13 +59,13 @@ class UserSignIn extends Component {
               onChange={this.changeTextInput}
             />
           </div>
-          <div class="grid-100 pad-bottom">
+          <div className="grid-100 pad-bottom">
             <button
-              class="button"
+              className="button"
               type="submit"
             >Sign In</button>
             <button
-              class="button button-secondary"
+              className="button button-secondary"
               onClick={this.cancelForm}
             >Cancel</button>
           </div>
@@ -76,8 +76,8 @@ class UserSignIn extends Component {
       <Consumer>
         { (context) => {
           return (
-            <div class="bounds">
-              <div class="grid-33 centered signin">
+            <div className="bounds">
+              <div className="grid-33 centered signin">
                 <h1>Sign In</h1>
                 {form}
   	          </div>
