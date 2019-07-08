@@ -6,10 +6,17 @@ import './global.css'
 
 class UserSignIn extends Component {
 
+  state = {
+    emailAddress: '',
+    password: '',
+  }
+
   submitForm = (event) => {
     const { context } = this.props;
+    const { emailAddress, password } = this.state;
+
     event.preventDefault();
-    context.actions.signIn({ name: "joe@smith.com", password: "joepassword" })
+    context.actions.signIn({ name: emailAddress, password: password })
       .then(() => { this.props.history.push('/') });
   }
 
@@ -18,20 +25,49 @@ class UserSignIn extends Component {
   	this.props.history.push('/')
   }
 
+  changeTextInput = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState(() => { return { [name]: value }});
+  }
+
+
   render() {
+
+    const { emailAddress, password } = this.state;
 
     const form =
       <React.Fragment>
         <form onSubmit={this.submitForm}>
           <div>
-  	        <input id="emailAddress" name="emailAddress" type="text" placeholder="Email Address" />
+            <input
+              id="emailAddress"
+              name="emailAddress"
+              type="text"
+              value={emailAddress}
+              placeholder="Email Address"
+              onChange={this.changeTextInput}
+            />
   	      </div>
           <div>
-            <input id="password" name="password" type="password" placeholder="Password" />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={password}
+              placeholder="Password"
+              onChange={this.changeTextInput}
+            />
           </div>
           <div class="grid-100 pad-bottom">
-            <button class="button" type="submit">Sign In</button>
-            <button class="button button-secondary" onClick={this.cancelForm}>Cancel</button>
+            <button
+              class="button"
+              type="submit"
+            >Sign In</button>
+            <button
+              class="button button-secondary"
+              onClick={this.cancelForm}
+            >Cancel</button>
           </div>
         </form>
       </React.Fragment>
