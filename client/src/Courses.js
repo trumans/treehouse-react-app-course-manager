@@ -18,7 +18,6 @@ class Courses extends Component {
 
   render() {
   	let tiles = null
-  	//console.log("in Courses. state is ", this.state);
   	if (this.state.courses !== undefined) {
   	  tiles = this.state.courses.map((course) => <CourseTile title={course.title} courseId={course.id} /> )
     }
@@ -35,7 +34,6 @@ class Courses extends Component {
 class CourseTile extends Component {
   
   render() {
-  	//console.log("in course tile", this.props);
   	let link = `courses/${this.props.courseId}`
   	return (
       <div class="grid-33">
