@@ -5,7 +5,14 @@ import './App.css';
 import Header from './Header';
 import Courses from './Courses';
 import UserSignIn from './UserSignIn';
+import UserSignOut from './UserSignOut';
 import NotFound from './NotFound';
+
+import addContext from './Context';
+
+const UserSignInAndContext = addContext(UserSignIn);
+const UserSignOutAndContext = addContext(UserSignOut);
+const CoursesAndContext = addContext(Courses);
 
 class App extends Component {
 
@@ -19,9 +26,10 @@ class App extends Component {
         <div className="container">
           <Header />
           <Switch>
-            <Route exact path="/" render={ () => <Redirect to={`/api/courses`} /> } />
-            <Route exact path="/api/courses" render={ () => <Courses /> } />
-            <Route path="/api/usersignin" component={UserSignIn} />
+            <Route exact path="/" render={ () => <Redirect to={`/courses`} /> } />
+            <Route exact path="/courses" component={CoursesAndContext} />
+            <Route path="/signin" component={UserSignInAndContext} />
+            <Route path="/signout" component={UserSignOutAndContext} />
             <Route path="/notfound" component={NotFound} />
             <Route component={NotFound} />
           </Switch>
