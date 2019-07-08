@@ -582,7 +582,8 @@ p {
 
 /* line 460, ../sass/global.sass */
 .signin,
-.signup {
+.signup,
+.signout {
   margin-top: 60px;
 }
 
@@ -725,11 +726,6 @@ input:focus {
 /* adds additional padding to the bottom of an element */
 .pad-bottom {
   padding-bottom: 40px;
-}
-
-/* added additional class name for header elements */
-.signout {
-  margin-top: 60px;
 }
 
 /* styles the signed in user's name in the header */
