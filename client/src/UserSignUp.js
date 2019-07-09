@@ -132,8 +132,9 @@ class UserSignUp extends Component {
                 {context.actions.formatErrors(errors)}
                 {form}
               </div>
-              <p> </p>
-              <p>Already have a user account? <Link to="/signin">Click here</Link> to sign in!</p>
+              <div className="grid-33 centered signup">
+                <p>Already have a user account? <Link to="/signin">Click here</Link> to sign in!</p>
+              </div>
             </div>
           )
         }}

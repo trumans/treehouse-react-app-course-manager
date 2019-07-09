@@ -107,8 +107,9 @@ class UserSignIn extends Component {
                 {errorMessage}
                 {form}
   	          </div>
-              <p> </p>
-              <p>Don't have a user account? <Link to="/signup">Click here</Link> to sign up!</p>
+              <div className="grid-33 centered signin">
+                <p>Don't have a user account? <Link to="/signup">Click here</Link> to sign up!</p>
+              </div>
             </div>
           )
         }}
