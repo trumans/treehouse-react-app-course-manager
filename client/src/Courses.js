@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import config from './config';
 import './global.css'
 
 class Courses extends Component {
@@ -7,7 +8,7 @@ class Courses extends Component {
   state = {} 
 
   getCourses = () => {
-    fetch("http://localhost:5000/api/courses", { method: 'GET' })
+    fetch(config.apiBaseUrl + "/courses", { method: 'GET' })
         .then(response => response.json())
         .then(data => this.setState( { courses: data.courses } ))
   }

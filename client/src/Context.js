@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
+import config from './config';
 
 const Context = React.createContext();
 
@@ -49,7 +50,7 @@ export class Provider extends Component {
          (the encoded user:password value used in the GET authorization header).
   */
   async signIn(user) {
-    const url = "http://localhost:5000/api/users";
+    const url = config.apiBaseUrl + "/users";
     const options = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },    
