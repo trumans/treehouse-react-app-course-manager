@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
-import config from './config';
 
 const Context = React.createContext();
 
@@ -41,7 +40,7 @@ export class Provider extends Component {
   /*
      Authenticate the user credentials
        @param user - object containing name and password to be passed to API
-       @returns response status code
+       @returns response status code of 200 or 401
 
        packages 'user' parameter into HTTP Authorization header
        if authentication succeeds a browser cookie is created named
@@ -50,7 +49,7 @@ export class Provider extends Component {
          (the encoded user:password value used in the GET authorization header).
   */
   async signIn(user) {
-    const url = config.apiBaseUrl + "/users";
+    const url = "http://localhost:5000/api/users";
     const options = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },    

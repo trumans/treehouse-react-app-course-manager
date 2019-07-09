@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import config from './config';
 import './global.css'
 
 class Courses extends Component {
 
   state = {} 
 
-  async getCourses() {
-    const url = config.apiBaseUrl + "/courses";
-    const response = await fetch(url, { method: 'GET' })
-    if (response.status === 200) {
-      response.json()
+  getCourses = () => {
+    fetch("http://localhost:5000/api/courses", { method: 'GET' })
+        .then(response => response.json())
         .then(data => this.setState( { courses: data.courses } ))
-    } else {
-      this.props.history.push("/error");
-    }
   }
 
   componentDidMount() {
