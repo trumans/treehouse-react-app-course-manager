@@ -746,7 +746,6 @@ input:focus {
 }
 
 .validation-errors li {
-  list-style: disc inside;
   color: #7c689b;
   font-size: 18px;
   padding: 0 0 10px 10px;
