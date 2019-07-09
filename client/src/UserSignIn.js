@@ -21,10 +21,10 @@ class UserSignIn extends Component {
 
     event.preventDefault();
     context.actions.signIn({ name: emailAddress, password: password })
-      .then((resp) => {
-        if (resp === 200) {
+      .then((response) => {
+        if (response.status === 200) {
           this.props.history.push('/');
-        } else if (resp === 401 ) {
+        } else if (response.status === 401 ) {
           this.setState({
             error: 'Authentication Failed',
           });

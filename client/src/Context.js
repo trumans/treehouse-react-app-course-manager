@@ -96,7 +96,7 @@ export class Provider extends Component {
         console.warn("user authentication returned status", response.status);
     }
 
-    return response.status;
+    return response;
   }
 
   /*
