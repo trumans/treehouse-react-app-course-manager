@@ -108,7 +108,7 @@ class UserSignIn extends Component {
                 {form}
   	          </div>
               <p> </p>
-              <p>Don't have a user account? <Link to="/usersignup">Click here</Link> to sign up!</p>
+              <p>Don't have a user account? <Link to="/signup">Click here</Link> to sign up!</p>
             </div>
           )
         }}
