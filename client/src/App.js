@@ -7,6 +7,7 @@ import Courses from './Courses';
 import UserSignIn from './UserSignIn';
 import UserSignOut from './UserSignOut';
 import NotFound from './NotFound';
+import UnhandledError from './UnhandledError';
 
 import addContext from './Context';
 
@@ -31,6 +32,7 @@ class App extends Component {
             <Route path="/signin" component={UserSignInAndContext} />
             <Route path="/signout" component={UserSignOutAndContext} />
             <Route path="/notfound" component={NotFound} />
+            <Route path="/error" component={UnhandledError} />
             <Route component={NotFound} />
           </Switch>
         </div>

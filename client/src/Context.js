@@ -70,7 +70,6 @@ export class Provider extends Component {
         this.signOut();
     } else {
         console.warn("user authentication returned status", response.status);
-        // TO-DO: redirect to error
     }
 
     return response.status;

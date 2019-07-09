@@ -24,12 +24,14 @@ class UserSignIn extends Component {
       .then((resp) => {
         if (resp === 200) {
           this.props.history.push('/');
-        } else {
+        } else if (resp === 401 ) {
           this.setState({
             emailAddress: '',
             password: '',
             error: 'Authentication Failed',
           });
+        } else {
+          this.props.history.push('/error');
         }
       });
   }
