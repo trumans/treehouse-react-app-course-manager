@@ -21,21 +21,25 @@ router.get('/', authenticateUser, (req, res) => {
 router.post('/',
 	[ check('firstName')
 		.exists( { checkNull: true, checkFalsy: true } )
-		.withMessage('firstName is required'),
+		.withMessage('Please enter your first name.'),
 
 	  check('lastName')
 	  	.exists( { checkNull: true, checkFalsy: true } )
-	  	.withMessage('lastName is required'),
+		.withMessage('Please enter your last name.'),
 
 	  check('emailAddress')
 	  	.exists( { checkNull: true, checkFalsy: true } )
-	  	.withMessage('emailAddress is required')
+		.withMessage('Please enter an email address.')
 	  	.isEmail()
-		.withMessage("Email must be valid email format"),
+		.withMessage("Please use a valid email format for your email address."),
 
 	  check('password')
 	  	.exists( { checkNull: true, checkFalsy: true } )
-	  	.withMessage('password is required')
+		.withMessage('Please enter a password.'),
+
+	  check('confirmPassword')
+		.exists( { checkNull: true, checkFalsy: true } )
+		.withMessage('Please enter your password again in "Confirm Password".')
 	],
 	(req, res) => {
 		const errorMsgs = validationResult(req).array().map(e => e.msg);
@@ -44,7 +48,11 @@ router.post('/',
 		findUserByEmail(newUser.emailAddress)
 			.then((existingUser) => {
 				if (existingUser) { 
-					errorMsgs.push("Email is used by another user"); 
+					errorMsgs.push("Please enter a different email address. The one provided is used by another user.");
+				}
+
+				if (newUser.password != newUser.confirmPassword) {
+					errorMsgs.push("Password and confirmation did not match. Please re-enter.");
 				}
 		
 				if (!errorMsgs.length) {
