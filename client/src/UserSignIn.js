@@ -12,7 +12,7 @@ class UserSignIn extends Component {
     error: '',
   }
 
-  // Sent entered credetials the the API
+  // Send entered credetials to the API
   //   If authentication succeeds redirect to home page
   //   otherwise clear page and display error message
   submitForm = (event) => {
@@ -26,8 +26,6 @@ class UserSignIn extends Component {
           this.props.history.push('/');
         } else if (resp === 401 ) {
           this.setState({
-            emailAddress: '',
-            password: '',
             error: 'Authentication Failed',
           });
         } else {
@@ -110,7 +108,7 @@ class UserSignIn extends Component {
                 {form}
   	          </div>
               <p> </p>
-              <p>Don't have a user account? <Link to="/api/usersignup">Click here</Link> to sign up!</p>
+              <p>Don't have a user account? <Link to="/usersignup">Click here</Link> to sign up!</p>
             </div>
           )
         }}
