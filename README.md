@@ -44,21 +44,30 @@ Page headers have a navigation bar with either Sign Up and Sign In links (if the
 ## Home page
 redirects to /courses
 
+## User Sign Up
+/signup
+
+* the user is redirected to this page by the Sign Up link in the page header.
+* form contains user data fields and submit button.
+* Cancel button redirects to courses page.
+* if a new user is created the page header is updated with the user name and the app redirects to the course page.
+* if a new user is not created the validation errors are listed.
+
+## User Sign In
+/signin
+
+* the user is redirected to this page by the Sign In link in the page header.
+* form contains email address (user name), password and submit button.
+* Cancel button redirects to courses page.
+* if authentication is successful the page header is updated and the app redirects to the course page.
+* if authentication fails an error message is displayed.
+
 ## Courses
 /courses
 
 * Lists all courses as a set of tiles, add a New Course tile.
 * Clicking on a tile opens corresponding the Course Detail page. 
 * Clicking the New Course tile opens the Create Course page.
-
-## User Sign In
-/usersignin
-
-* the user is redirected to this page by the Sign In link in the page header.
-* form contains email address (user name), password and submit button.
-* Cancel button redirects to courses page.
-* if authentication is successful the page header is updated and app redirects to the course page.
-* if authentication fails the fields are cleared and an error message is displayed.
 
  
 # Routes
