@@ -37,6 +37,17 @@ export class Provider extends Component {
       )
   }
 
+  /*
+     Authenticate the user credentials
+       @param user - object containing name and password to be passed to API
+       @returns response status code of 200 or 401
+
+       packages 'user' parameter into HTTP Authorization header
+       if authentication succeeds a browser cookie is created named
+         authenticatedUser containing the elements id, firstName, lastName,
+         emailAddress (from the returned user record), and authorization
+         (the encoded user:password value used in the GET authorization header).
+  */
   async signIn(user) {
     const url = "http://localhost:5000/api/users";
     const options = {
@@ -50,18 +61,24 @@ export class Provider extends Component {
     const response = await fetch(url, options);
     if (response.status === 200) {
     	response.json().then((user) => {
-      	  Cookies.set('authenticatedUser', JSON.stringify(user.user), { expires: 7 });
+          const cookieData = user.user;
+          cookieData.authorization = encodedCredentials;
+          Cookies.set('authenticatedUser', JSON.stringify(cookieData), { expires: 7 });
     	})
     } else if (response.status === 401) {
-        // Perhaps unnecesssary but remove any authentication cookies 
+        // Perhaps unnecesssary but remove any authentication cookies
         this.signOut();
-        return null
     } else {
         console.warn("user authentication returned status", response.status);
         // TO-DO: redirect to error
     }
+
+    return response.status;
   }
 
+  /*
+      Remove the authentication cookie
+  */
   async signOut() {
     Cookies.remove('authenticatedUser');
   }

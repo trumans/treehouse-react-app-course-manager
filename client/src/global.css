@@ -744,6 +744,12 @@ input:focus {
   padding: 15px 0 40px 10px;
 }
 
+.validation-errors li {
+  color: red;
+  font-size: 18px;
+  padding: 10px 0 10px 10px;
+}
+
 /* reduce bottom margin on the course description textarea element */
 .course--description textarea {
   margin-bottom: 20px;

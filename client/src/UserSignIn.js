@@ -9,17 +9,32 @@ class UserSignIn extends Component {
   state = {
     emailAddress: '',
     password: '',
+    error: '',
   }
 
+  // Sent entered credetials the the API
+  //   If authentication succeeds redirect to home page
+  //   otherwise clear page and display error message
   submitForm = (event) => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
 
     event.preventDefault();
     context.actions.signIn({ name: emailAddress, password: password })
-      .then(() => { this.props.history.push('/') });
+      .then((resp) => {
+        if (resp === 200) {
+          this.props.history.push('/');
+        } else {
+          this.setState({
+            emailAddress: '',
+            password: '',
+            error: 'Authentication Failed',
+          });
+        }
+      });
   }
 
+  // Redirect to home page
   cancelForm = (event) => {
   	event.preventDefault();
   	this.props.history.push('/')
@@ -28,13 +43,23 @@ class UserSignIn extends Component {
   changeTextInput = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    this.setState(() => { return { [name]: value }});
+    this.setState({ [name]: value });
   }
 
 
   render() {
 
-    const { emailAddress, password } = this.state;
+    const { emailAddress, password, error } = this.state;
+
+    const errorMessage =
+      error ?
+        <React.Fragment>
+          <ul className="validation-errors">
+            <li>{error}</li>
+          </ul>
+        </React.Fragment>
+      :
+        null
 
     const form =
       <React.Fragment>
@@ -79,6 +104,7 @@ class UserSignIn extends Component {
             <div className="bounds">
               <div className="grid-33 centered signin">
                 <h1>Sign In</h1>
+                {errorMessage}
                 {form}
   	          </div>
               <p> </p>
