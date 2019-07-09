@@ -21,9 +21,11 @@ export class Provider extends Component {
     const value = {
     	authenticatedUser,
     	actions: {
+        signUp: this.signUp,
     		signIn: this.signIn,
     		signOut: this.signOut,
     		getAuthUser: this.getAuthUser,
+        formatErrors: this.formatErrors,
     	}
     };
 
@@ -39,8 +41,29 @@ export class Provider extends Component {
   }
 
   /*
+     Create a new user
+       @param user - object containing new user data pass to Post /api/users
+       @returns response
+  */
+  async signUp(user) {
+    const url = config.apiBaseUrl + '/users';
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(user),
+    };
+
+    const response = await fetch(url, options);
+    if (response.status !== 201 && response.status !== 400) {
+        console.warn("user create returned status", response.status);
+    }
+
+    return response;
+  }
+
+  /*
      Authenticate the user credentials
-       @param user - object containing name and password to be passed to API
+       @param user - object containing name and password to pass to Get /api/users
        @returns response status code of 200 or 401
 
        packages 'user' parameter into HTTP Authorization header
@@ -81,6 +104,20 @@ export class Provider extends Component {
   */
   async signOut() {
     Cookies.remove('authenticatedUser');
+  }
+
+  formatErrors(errors) {
+    return (
+      errors ?
+        <React.Fragment>
+          <h2 className="validation--errors--label">Validation errors</h2>
+          <ul className="validation-errors">
+            { errors.map((error, index) => { return (<li key={index}>{error}</li>) } ) }
+          </ul>
+        </React.Fragment>
+      :
+        null
+    )
   }
 
 }
