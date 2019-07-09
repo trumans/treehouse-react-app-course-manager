@@ -1,6 +1,6 @@
 
 **Notes to the Treehouse reviewer** 
-* The project includes 'Extra Credit' functionality for 'Exceeds Expectations' grade
+* The project includes 'Extra Credit' functionality for 'Exceeds Expectations' grade ...
 
 
 # Installing the REST API
@@ -34,22 +34,33 @@ Connected to database
 # Starting the web app server
 1. In a terminal windown and navigate to the project folder, then to the ```client``` folder.
 2. Enter the command ```npm start```.
-If the application starts successfully a browser window/tab opens with ???
+If the application starts successfully a browser window/tab opens in courses page.
 
 # Pages
-App domain is http://localhost:3000
+App base URL is http://localhost:3000
+
+Page headers have a navigation bar with either Sign Up and Sign In links (if the is no active user) or the current user name and a Sign Out link.
 
 ## Home page
-redirects to /api/courses
+redirects to /courses
 
 ## Courses
-/api/courses
+/courses
 
-* Lists all courses as a set of tiles, and a New Course tile.
+* Lists all courses as a set of tiles, add a New Course tile.
 * Clicking on a tile opens corresponding the Course Detail page. 
 * Clicking the New Course tile opens the Create Course page.
 
+## User Sign In
+/usersignin
 
+* the user is redirected to this page by the Sign In link in the page header.
+* form contains email address (user name), password and submit button.
+* Cancel button redirects to courses page.
+* if authentication is successful the page header is updated and app redirects to the course page.
+* if authentication fails the fields are cleared and an error message is displayed.
+
+ 
 # Routes
 
 **User Authentication**
