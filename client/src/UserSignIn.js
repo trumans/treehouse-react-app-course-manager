@@ -23,7 +23,12 @@ class UserSignIn extends Component {
     context.actions.signIn({ name: emailAddress, password: password })
       .then((response) => {
         if (response.status === 200) {
-          this.props.history.push('/');
+          const from = this.props.location.from;
+          if (from) {
+            this.props.history.push(from.pathname);
+          } else {
+            this.props.history.push('/');
+          }
         } else if (response.status === 401 ) {
           this.setState({
             error: 'Authentication Failed',

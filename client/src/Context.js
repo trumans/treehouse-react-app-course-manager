@@ -7,7 +7,7 @@ const Context = React.createContext();
 export class Provider extends Component {
 
   getAuthUser() {
-    return (Cookies.getJSON('authenticatedUser') || null );  
+    return (Cookies.getJSON('authenticatedUser') || null );
   }
 
   state = {
@@ -21,8 +21,9 @@ export class Provider extends Component {
     const value = {
     	authenticatedUser,
     	actions: {
-        signUp: this.signUp,
+        createCourse: this.createCourse,
     		signIn: this.signIn,
+        signUp: this.signUp,
     		signOut: this.signOut,
     		getAuthUser: this.getAuthUser,
         formatErrors: this.formatErrors,
@@ -39,23 +40,27 @@ export class Provider extends Component {
       </Context.Provider>
       )
   }
-
-  /*
+/*
      Create a new user
        @param user - object containing new user data pass to Post /api/users
        @returns response
   */
-  async signUp(user) {
-    const url = config.apiBaseUrl + '/users';
+  async createCourse(course) {
+    const url = config.apiBaseUrl + '/courses';
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify(user),
+      body: JSON.stringify(course),
     };
+    const a = this.getAuthUser();
+    console.log('in create course. a', a);
+    const encodedCredentials = a.authorization;
+    options.headers['Authorization'] = `Basic ${encodedCredentials}`;
+
 
     const response = await fetch(url, options);
     if (response.status !== 201 && response.status !== 400) {
-        console.warn("user create returned status", response.status);
+        console.warn("course create returned status", response.status);
     }
 
     return response;
@@ -100,7 +105,28 @@ export class Provider extends Component {
   }
 
   /*
-      Remove the authentication cookie
+     Create a new user
+       @param user - object containing new user data pass to Post /api/users
+       @returns response
+  */
+  async signUp(user) {
+    const url = config.apiBaseUrl + '/users';
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(user),
+    };
+
+    const response = await fetch(url, options);
+    if (response.status !== 201 && response.status !== 400) {
+        console.warn("user create returned status", response.status);
+    }
+
+    return response;
+  }
+
+  /*
+      Remove the local authentication data
   */
   async signOut() {
     Cookies.remove('authenticatedUser');
