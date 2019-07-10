@@ -69,7 +69,15 @@ redirects to /courses
 * Clicking on a tile opens corresponding the Course Detail page. 
 * Clicking the New Course tile opens the Create Course page.
 
- 
+## CreateCourse
+/courses/create
+
+* If there is no current user the app redirects to sign-in page which returns to create course when sign-in is successful.
+* Displays form to enter course data.
+* Uses the current user for user name and id associated with course.
+* The Cancel button returns to courses page.
+
+
 # Routes
 
 **User Authentication**
