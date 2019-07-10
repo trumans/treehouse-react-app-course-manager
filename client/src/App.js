@@ -9,6 +9,7 @@ import CreateCourse   from './CreateCourse';
 import UserSignIn     from './UserSignIn';
 import UserSignUp     from './UserSignUp';
 import UserSignOut    from './UserSignOut';
+import Forbidden      from './Forbidden';
 import NotFound       from './NotFound';
 import UnhandledError from './UnhandledError';
 
@@ -37,6 +38,7 @@ class App extends Component {
             <Route path="/signin" component={UserSignInAndContext} />
             <Route path="/signup" component={UserSignUpAndContext} />
             <Route path="/signout" component={UserSignOutAndContext} />
+            <Route path="/forbidden" component={Forbidden} />
             <Route path="/notfound" component={NotFound} />
             <Route path="/error" component={UnhandledError} />
             <Route component={NotFound} />
