@@ -41,11 +41,11 @@ router.get('/:id', (req, res) => {
 const validateCourseBody = 
 	[ check('title')
 		.exists( { checkNull: true, checkFalsy: true } )
-		.withMessage('title is required'),
+		.withMessage('Please enter a course title.'),
 
 	  check('description')
 		.exists( { checkNull: true, checkFalsy: true } )
-		.withMessage('description is required')
+		.withMessage('Please enter a course description.')
 	]
 
 // Create a new course
