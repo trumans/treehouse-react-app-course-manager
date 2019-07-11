@@ -5,6 +5,7 @@ import './App.css';
 import Header from './Header';
 
 import Courses        from './Courses';
+import CourseDetail   from './CourseDetail';
 import CreateCourse   from './CreateCourse';
 import UserSignIn     from './UserSignIn';
 import UserSignUp     from './UserSignUp';
@@ -15,6 +16,7 @@ import UnhandledError from './UnhandledError';
 
 import addContext from './Context';
 const CoursesAndContext      = addContext(Courses);
+const CourseDetailAndContext = addContext(CourseDetail);
 const CreateCourseAndContext = addContext(CreateCourse);
 const UserSignInAndContext   = addContext(UserSignIn);
 const UserSignUpAndContext   = addContext(UserSignUp);
@@ -34,6 +36,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/courses`} /> } />
             <Route exact path="/courses" component={CoursesAndContext} />
+            <Route path="/courses/:id" component={CourseDetailAndContext} />
             <Route path="/courses/create" component={CreateCourseAndContext} />
             <Route path="/signin" component={UserSignInAndContext} />
             <Route path="/signup" component={UserSignUpAndContext} />
