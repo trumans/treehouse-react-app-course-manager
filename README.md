@@ -69,6 +69,13 @@ redirects to /courses
 * Clicking on a tile opens corresponding the Course Detail page. 
 * Clicking the New Course tile opens the Create Course page.
 
+## CourseDetail
+/courses/:id
+
+* Displays the course title, description, time and materials
+* Buttons to edit and delete the course are displayed if the current user created the course.
+* The Return to List button redirects to the courses pages.
+
 ## CreateCourse
 /courses/create
 
@@ -76,6 +83,7 @@ redirects to /courses
 * Displays form to enter course data.
 * Uses the current user for user name and id associated with course.
 * The Cancel button returns to courses page.
+
 
 
 # Routes
