@@ -94,11 +94,11 @@ class CourseDetail extends Component {
                   <a className="button button-secondary" href="/courses">Return to List</a>
                 </div>
               </div>
+            </div>
 
-              <div className="bounds course--detail">
-                <div>
-                  {details()}
-                </div>
+            <div className="bounds course--detail">
+              <div>
+                {details()}
               </div>
             </div>
             </React.Fragment>
