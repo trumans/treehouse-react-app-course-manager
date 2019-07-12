@@ -4,6 +4,7 @@ import { Consumer } from './Context';
 import './global.css';
 
 const Header = () => {
+  console.log("rendering header")
   return (
     <Consumer>
       { ({ actions }) => {

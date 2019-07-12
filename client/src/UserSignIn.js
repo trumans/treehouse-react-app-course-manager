@@ -23,6 +23,9 @@ class UserSignIn extends Component {
     context.actions.signIn({ name: emailAddress, password: password })
       .then((response) => {
         if (response.status === 200) {
+          const a = context.actions.getAuthUser();
+          console.log("in sign in submit form. auth user cookie", a);
+          this.setState({ authd: 'yes' })
           const from = this.props.location.from;
           if (from) {
             this.props.history.push(from.pathname);
@@ -31,6 +34,7 @@ class UserSignIn extends Component {
           }
         } else if (response.status === 401 ) {
           this.setState({
+            authd: '',
             error: 'Authentication Failed',
           });
         } else {
@@ -64,7 +68,7 @@ class UserSignIn extends Component {
           </ul>
         </React.Fragment>
       :
-        null
+        <React.Fragment></React.Fragment>
 
     const form =
       <React.Fragment>
