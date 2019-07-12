@@ -42,8 +42,8 @@ export class Provider extends Component {
       )
   }
 /*
-     Create a new user
-       @param user - object containing new user data pass to Post /api/users
+     Create a new course
+       @param course - object containing new course data pass to Post /api/course
        @returns response
   */
   async createCourse(course) {
@@ -53,9 +53,7 @@ export class Provider extends Component {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(course),
     };
-    const a = this.getAuthUser();
-    console.log('in create course. a', a);
-    const encodedCredentials = a.authorization;
+    const encodedCredentials = this.getAuthUser().authorization;
     options.headers['Authorization'] = `Basic ${encodedCredentials}`;
 
 
