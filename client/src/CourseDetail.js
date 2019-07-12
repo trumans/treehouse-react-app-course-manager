@@ -79,8 +79,8 @@ class CourseDetail extends Component {
             //   include the update and delete buttons
             (user && user.id === userId) ?
               <React.Fragment>
-                <a className="button" href={`/courses/update/${courseId}`}>Update Course</a>
-                <a className="button" href={`/courses/delete/${courseId}`}>Delete Course</a>
+                <a className="button" href={`/courses/${courseId}/update`}>Update Course</a>
+                <a className="button" href={`/courses/${courseId}/delete`}>Delete Course</a>
               </React.Fragment>
             :
               <React.Fragment></React.Fragment>
