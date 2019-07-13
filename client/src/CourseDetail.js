@@ -22,12 +22,16 @@ class CourseDetail extends Component {
     const { context } = this.props;
     context.actions.deleteCourse(courseId)
       .then((response) => {
+        // delete was successful. redirect to courses list
         if (response.status === 204) {
           this.props.history.push('/courses');
+        // delete was not allowed. redirect to Forbidden page
         } else if (response.status === 403 ) {
           this.props.history.push('/forbidden');
+        // course id was not found. redirect to Not Found page
         } else if (response.status === 404 ) {
           this.props.history.push('/notfound');
+        // all other status codes
         } else {
           this.props.history.push('/error');
         }
