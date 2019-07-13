@@ -7,28 +7,30 @@ import './global.css';
 
 class CourseDetail extends Component {
 
+  state = {
+    id: '',
+    title: '',
+    description: '',
+    estimatedTime: '',
+    materialsNeeded: ''
+  }
+
   getCourse = () => {
     const url = config.apiBaseUrl + "/courses/" + this.props.match.params.id;
     fetch(url, { method: 'GET' })
         .then(response => response.json())
-        .then(data => {
-          this.setState( { course: data.course } )})
+        .then(data => { this.setState( data.course ) })
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {};
+  componentDidMount() {
     this.getCourse();
   }
 
   render() {
     const { context } = this.props;
-    if (this.state.course === undefined) {
-      return null;
-    }
-    const { title, description, estimatedTime, materialsNeeded, userId }
-      = this.state.course;
-    const courseId = this.state.course.id;
+    const { title, description, estimatedTime, materialsNeeded, userId } 
+      = this.state;
+    const courseId = this.state.id;
     const instructor = {firstName: "The", lastName: "Instructor"};
     // TO-DO: get course's instructor name
     const user = context.actions.getAuthUser();
