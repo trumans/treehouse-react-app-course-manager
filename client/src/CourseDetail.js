@@ -18,10 +18,13 @@ class CourseDetail extends Component {
     const { context } = this.props;
     context.actions.getCourse(this.props.match.params.id)
       .then((response) => {
+        // a course was returned. parse into state.
         if (response.status === 200) {
           response.json().then(data => { this.setState( data.course ) })
+        // no course was returned
         } else if (response.status === 404) {
           this.props.history.push('/notfound');
+        // any other status code
         } else {
           this.props.history.push('/error');
         }
