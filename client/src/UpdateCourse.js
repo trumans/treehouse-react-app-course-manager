@@ -52,7 +52,7 @@ class UpdateCourse extends Component {
           response.json().then(data => {
             this.setState( data.course );
             // if course owner is not current user then redirect to forbidden
-            if (this.state.userId != authUser.id) {
+            if (this.state.userId !== authUser.id) {
               this.props.history.push('/forbidden');
             }
           });
