@@ -80,6 +80,7 @@ redirects to /courses
 * Displays the course title, description, time and materials
 * Buttons to edit and delete the course are displayed if the current user created the course.
 * The Return to List button redirects to the courses pages.
+* Delete button calls the function to delete the course. If successful the app redirects to courses list page.
 
 ## CreateCourse
 /courses/create
@@ -102,6 +103,11 @@ redirects to /courses
 * If the course is not updated due to validation errors the errors are displayed.
 * Uses the current user for user name and id associated with course.
 * The Cancel button returns to course detail page.
+
+## Comments on code organization
+
+* Context.js contains the functions which call the APIs and return the response.
+* CourseDetail, CreateCourse, UpdateCourse components call the relavent function in Context to get, create, update or delete a course. They check the API response and render the data returned, or based on the status code redirect to the Not Found, Forbidden or Error (unhandled status) pages.
 
 
 # API Routes
