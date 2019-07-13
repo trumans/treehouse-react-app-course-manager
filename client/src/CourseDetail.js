@@ -11,7 +11,8 @@ class CourseDetail extends Component {
     title: '',
     description: '',
     estimatedTime: '',
-    materialsNeeded: ''
+    materialsNeeded: '',
+    User: {}
   }
 
   componentDidMount() {
@@ -33,12 +34,10 @@ class CourseDetail extends Component {
 
   render() {
     const { context } = this.props;
-    const { title, description, estimatedTime, materialsNeeded, userId } 
-      = this.state;
+    const { title, description, estimatedTime, materialsNeeded } = this.state;
+    const owner = this.state.User;
     const courseId = this.state.id;
-    const instructor = {firstName: "The", lastName: "Instructor"};
-    // TO-DO: get course's instructor name
-    const user = context.actions.getAuthUser();
+    const authUser = context.actions.getAuthUser();
 
     const details = () => {
       return (
@@ -47,7 +46,7 @@ class CourseDetail extends Component {
             <div className="course--header">
               <h4 className="course--label">Course</h4>
               <h3 className="course--title">{title}</h3>
-              <p>By {instructor.firstName} {instructor.lastName}</p>
+              <p>By {owner.firstName} {owner.lastName}</p>
             </div>
 
             <div className="course--description">
@@ -82,9 +81,9 @@ class CourseDetail extends Component {
       <Consumer>
         { (context) => {
           const changeButtons =
-            // if the auth'd user is the same as the course user/owner
+            // if the auth'd user is the same as the course owner
             //   include the update and delete buttons
-            (user && user.id === userId) ?
+            (authUser && authUser.id === owner.id) ?
               <React.Fragment>
                 <a className="button" href={`/courses/${courseId}/update`}>Update Course</a>
                 <a className="button" href={`/courses/${courseId}/delete`}>Delete Course</a>

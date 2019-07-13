@@ -12,7 +12,8 @@ class UpdateCourse extends Component {
     title: '',
     description: '',
     estimatedTime: '',
-    materialsNeeded: ''
+    materialsNeeded: '',
+    User: {}
   }
 
   // Send data to the Put /courses/:id
@@ -68,8 +69,9 @@ class UpdateCourse extends Component {
 
   render() {
     const { id, title, description, estimatedTime, materialsNeeded, errors } = this.state;
+    const owner = this.state.User;
 
-    const form = (owner) => {
+    const form = () => {
       return (
         <React.Fragment>
           <form onSubmit={this.submitForm}>
@@ -164,7 +166,7 @@ class UpdateCourse extends Component {
                 <h1>Update Course</h1>
                 <div>
                   {context.actions.formatErrors(errors)}
-                  {form(authUser)}
+                  {form()}
                 </div>
               </div>
             )
