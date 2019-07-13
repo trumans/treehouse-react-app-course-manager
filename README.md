@@ -47,20 +47,20 @@ redirects to /courses
 ## User Sign Up
 /signup
 
-* the user is redirected to this page by the Sign Up link in the page header.
-* form contains user data fields and submit button.
+* The user is redirected to this page by the Sign Up link in the page header.
+* Displays a form to enter user data. A Sign Up button submits the data.
 * Cancel button redirects to courses page.
-* if a new user is created the page header is updated with the user name and the app redirects to the course page.
-* if a new user is not created the validation errors are listed.
+* If a new user is created the page header is updated with the user name and the app redirects to the courses list page.
+* If a new user is not created the validation errors are listed.
 
 ## User Sign In
 /signin
 
-* the user is redirected to this page by the Sign In link in the page header.
-* form contains email address (user name), password and submit button.
+* The user is redirected to this page by the Sign In link in the page header.
+* Displays a form contains email address (user name) and password. A Sign In button submits the form.
 * Cancel button redirects to courses page.
-* if authentication is successful the page header is updated and the app redirects to the course page.
-* if authentication fails an error message is displayed.
+* If authentication is successful the page header is updated and the app redirects to the courses list page.
+* If authentication fails an error message is displayed.
 
 ## Courses
 /courses
@@ -80,10 +80,21 @@ redirects to /courses
 /courses/create
 
 * If there is no current user the app redirects to sign-in page which returns to create course when sign-in is successful.
-* Displays form to enter course data.
-* Uses the current user for user name and id associated with course.
+* Displays a form to enter course data. The Create Course button submits the course data.
+* If the course is created the app redirects to the course list
+* If the course is not created due to validation errors the errors are displayed.
+* Uses the current user for name and id of the course owner.
 * The Cancel button returns to courses page.
 
+## UpdateCourse
+/courses/:id/update
+
+* The user is directed to the page from the course detail page Update Course button.
+* Displays the course data in a form for editing.  The Update Course button submits the update.
+* If the update is successful the app redirect to the course detail page.
+* If the course is not updated due to validation errors the errors are displayed.
+* Uses the current user for user name and id associated with course.
+* The Cancel button returns to course detail page.
 
 
 # Routes
