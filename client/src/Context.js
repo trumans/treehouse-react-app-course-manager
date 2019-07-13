@@ -23,6 +23,7 @@ export class Provider extends Component {
     	authenticatedUser,
     	actions: {
         createCourse: this.createCourse,
+        updateCourse: this.updateCourse,
     		signIn: this.signIn,
         signUp: this.signUp,
     		signOut: this.signOut,
@@ -59,6 +60,30 @@ export class Provider extends Component {
 
     const response = await fetch(url, options);
     if (response.status !== 201 && response.status !== 400) {
+        console.warn("course create returned status", response.status);
+    }
+
+    return response;
+  }
+
+/*
+     Update a course
+       @param course - object containing course data pass to Put /api/course
+       @returns response
+  */
+  async updateCourse(course) {
+    console.log("in update course(). course", course);
+    const url = config.apiBaseUrl + '/courses/' + course.id;
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(course),
+    };
+    const encodedCredentials = this.getAuthUser().authorization;
+    options.headers['Authorization'] = `Basic ${encodedCredentials}`;
+
+    const response = await fetch(url, options);
+    if (response.status !== 200 && response.status !== 400) {
         console.warn("course create returned status", response.status);
     }
 
