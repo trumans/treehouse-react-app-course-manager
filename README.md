@@ -3,12 +3,14 @@
 * The project includes 'Extra Credit' functionality for 'Exceeds Expectations' grade ...
 
 
-# Installing the REST API
+# Installation
+
+## Installing the REST API
 
 1. In a terminal window navigate to the project folder, then to the api folder.
 2. Install npm modules with the command ```npm install```.
 3. Create the database with the command ```npm run seed```.
-The database will be populated with two users and three courses. 
+The database is initially populated with two users and three courses. 
 
 ## Resetting the database
 To reset database to its seed data
@@ -17,11 +19,13 @@ To reset database to its seed data
 3. Recreate the database with the command ```npm run seed```.
 4. Restart the application server with the command ```npm start```
 
-# Installing the web app front end
+## Installing the web app front end
 1. In a terminal window navigate to the project folder, then to the client folder.
 2. Install npm modules with the command ```npm install```.
 
-# Starting the API server
+# Starting the application
+
+## Starting the API server
 1. In a terminal windown and navigate to the project folder, then to the ```api``` folder.
 2. Enter the command ```npm start```.
 If the application starts successfully the following messages appear in the console
@@ -31,7 +35,7 @@ Executing (default): SELECT 1+1 AS result
 Connected to database
 ```
 
-# Starting the web app server
+## Starting the web app server
 1. In a terminal windown and navigate to the project folder, then to the ```client``` folder.
 2. Enter the command ```npm start```.
 If the application starts successfully a browser window/tab opens in courses page.
@@ -97,7 +101,7 @@ redirects to /courses
 * The Cancel button returns to course detail page.
 
 
-# Routes
+# API Routes
 
 **User Authentication**
 
