@@ -76,6 +76,7 @@ redirects to /courses
 ## CourseDetail
 /courses/:id
 
+* If the course id in the URL is not a valid course id the app redirects to the Not Found page.
 * Displays the course title, description, time and materials
 * Buttons to edit and delete the course are displayed if the current user created the course.
 * The Return to List button redirects to the courses pages.
@@ -94,7 +95,9 @@ redirects to /courses
 /courses/:id/update
 
 * The user is directed to the page from the course detail page Update Course button.
-* Displays the course data in a form for editing.  The Update Course button submits the update.
+* If the course id in the URL is not a valid course id the app redirects to the Not Found page.
+* If the course owner is not the current user the app redirects to the Forbidden page.
+* Displays the course data in a form for editing. The Update Course button submits the update.
 * If the update is successful the app redirect to the course detail page.
 * If the course is not updated due to validation errors the errors are displayed.
 * Uses the current user for user name and id associated with course.
