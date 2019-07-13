@@ -83,7 +83,7 @@ export class Provider extends Component {
     options.headers['Authorization'] = `Basic ${encodedCredentials}`;
 
     const response = await fetch(url, options);
-    if (response.status !== 200 && response.status !== 400) {
+    if (response.status !== 204 && response.status !== 400) {
         console.warn("course create returned status", response.status);
     }
 
