@@ -44,12 +44,22 @@ class UpdateCourse extends Component {
 
   componentDidMount() {
     const { context } = this.props;
+    const authUser = context.actions.getAuthUser()
     context.actions.getCourse(this.props.match.params.id)
       .then((response) => {
+        // a course was returned. parse into state.
         if (response.status === 200) {
-          response.json().then(data => { this.setState( data.course ) })
+          response.json().then(data => {
+            this.setState( data.course );
+            // if course owner is not current user then redirect to forbidden
+            if (this.state.userId != authUser.id) {
+              this.props.history.push('/forbidden');
+            }
+          });
+        // no course was returned
         } else if (response.status === 404) {
           this.props.history.push('/notfound');
+        // any other status code
         } else {
           this.props.history.push('/error');
         }
