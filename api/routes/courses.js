@@ -147,7 +147,7 @@ router.delete('/:id', authenticateUser,
 					}
 				} else {
 					// fail because URI is not a valid course
-					res.status(400).json( {
+					res.status(404).json( {
 						errors: [ `Course with id '${courseId}' not found` ]
 					});
 				}

@@ -15,6 +15,25 @@ class CourseDetail extends Component {
     User: {}
   }
 
+  // Send data to the Put /courses/:id
+  //   If the course is deleted redirect to courses list
+  //   otherwise redirect as per status code
+  handleDeleteCourse = (courseId) => {
+    const { context } = this.props;
+    context.actions.deleteCourse(courseId)
+      .then((response) => {
+        if (response.status === 204) {
+          this.props.history.push('/courses');
+        } else if (response.status === 403 ) {
+          this.props.history.push('/forbidden');
+        } else if (response.status === 404 ) {
+          this.props.history.push('/notfound');
+        } else {
+          this.props.history.push('/error');
+        }
+      });
+  }
+
   componentDidMount() {
     const { context } = this.props;
     context.actions.getCourse(this.props.match.params.id)
@@ -85,8 +104,17 @@ class CourseDetail extends Component {
             //   include the update and delete buttons
             (authUser && authUser.id === owner.id) ?
               <React.Fragment>
-                <a className="button" href={`/courses/${courseId}/update`}>Update Course</a>
-                <a className="button" href={`/courses/${courseId}/delete`}>Delete Course</a>
+
+                <a
+                  className="button"
+                  href={`/courses/${courseId}/update`}
+                >Update Course</a>
+
+                <button
+                  className="button"
+                  onClick={() => {this.handleDeleteCourse(courseId)}}
+                >Delete Course</button>
+
               </React.Fragment>
             :
               <React.Fragment></React.Fragment>

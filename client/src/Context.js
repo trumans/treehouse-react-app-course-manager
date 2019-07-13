@@ -25,6 +25,7 @@ export class Provider extends Component {
         getCourse: this.getCourse,
         createCourse: this.createCourse,
         updateCourse: this.updateCourse,
+        deleteCourse: this.deleteCourse,
     		signIn: this.signIn,
         signUp: this.signUp,
     		signOut: this.signOut,
@@ -76,13 +77,12 @@ export class Provider extends Component {
     return response;
   }
 
-/*
+  /*
      Update a course
        @param course - object containing course data pass to Put /api/course
        @returns response
   */
   async updateCourse(course) {
-    console.log("in update course(). course", course);
     const url = config.apiBaseUrl + '/courses/' + course.id;
     const options = {
       method: 'PUT',
@@ -95,6 +95,28 @@ export class Provider extends Component {
     const response = await fetch(url, options);
     if (response.status !== 204 && response.status !== 400) {
         console.warn("course create returned status", response.status);
+    }
+
+    return response;
+  }
+
+  /*
+     Delete a course
+       @param id - id of course to be deletedto pass to Delete /api/courses/:id
+       @returns response
+  */
+  async deleteCourse(courseId) {
+    const url = config.apiBaseUrl + '/courses/' + courseId;
+    const options = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' }
+    };
+    const encodedCredentials = this.getAuthUser().authorization;
+    options.headers['Authorization'] = `Basic ${encodedCredentials}`;
+
+    const response = await fetch(url, options);
+    if (![204, 403, 404].includes(response.status)) {
+        console.warn("course delete returned status", response.status);
     }
 
     return response;
