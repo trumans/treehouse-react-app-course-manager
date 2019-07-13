@@ -22,6 +22,7 @@ export class Provider extends Component {
     const value = {
     	authenticatedUser,
     	actions: {
+        getCourse: this.getCourse,
         createCourse: this.createCourse,
         updateCourse: this.updateCourse,
     		signIn: this.signIn,
@@ -42,7 +43,17 @@ export class Provider extends Component {
       </Context.Provider>
       )
   }
-/*
+
+  /*
+     Get a course as specified by URL
+  */
+  async getCourse(id) {
+    const url = config.apiBaseUrl + "/courses/" + id;
+    const response = await fetch(url, { method: 'GET' })
+    return response;
+  }
+
+  /*
      Create a new course
        @param course - object containing new course data pass to Post /api/course
        @returns response
@@ -56,7 +67,6 @@ export class Provider extends Component {
     };
     const encodedCredentials = this.getAuthUser().authorization;
     options.headers['Authorization'] = `Basic ${encodedCredentials}`;
-
 
     const response = await fetch(url, options);
     if (response.status !== 201 && response.status !== 400) {

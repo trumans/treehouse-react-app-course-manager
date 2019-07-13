@@ -34,7 +34,14 @@ router.get('/:id', (req, res) => {
 			}]
 		})
 		.then((course) => {
-			res.json( { course } );
+			if (course) {
+				res.json( { course } );
+			} else {
+				// fail because URI is not a valid course
+				res.status(404).json( {
+					errors: [ `Course with id '${req.params.id}' not found` ]
+				});
+			}
 		});
 });
 

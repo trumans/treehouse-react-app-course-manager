@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
 import { Consumer } from './Context';
-import config from './config';
 import './global.css';
 
 class UpdateCourse extends Component {
@@ -14,14 +13,6 @@ class UpdateCourse extends Component {
     description: '',
     estimatedTime: '',
     materialsNeeded: ''
-  }
-
-  // TO-DO: move getCourse to context
-  getCourse = () => {
-    const url = config.apiBaseUrl + "/courses/" + this.props.match.params.id;
-    fetch(url, { method: 'GET' })
-        .then(response => response.json())
-        .then(data => { this.setState( data.course ) })
   }
 
   // Send data to the Put /courses/:id
@@ -52,7 +43,17 @@ class UpdateCourse extends Component {
   }
 
   componentDidMount() {
-    this.getCourse();
+    const { context } = this.props;
+    context.actions.getCourse(this.props.match.params.id)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then(data => { this.setState( data.course ) })
+        } else if (response.status === 404) {
+          this.props.history.push('/notfound');
+        } else {
+          this.props.history.push('/error');
+        }
+    })
   }
 
   render() {

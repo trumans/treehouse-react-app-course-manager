@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import { Consumer } from './Context';
-import config from './config';
 import './global.css';
 
 class CourseDetail extends Component {
@@ -15,15 +14,18 @@ class CourseDetail extends Component {
     materialsNeeded: ''
   }
 
-  getCourse = () => {
-    const url = config.apiBaseUrl + "/courses/" + this.props.match.params.id;
-    fetch(url, { method: 'GET' })
-        .then(response => response.json())
-        .then(data => { this.setState( data.course ) })
-  }
-
   componentDidMount() {
-    this.getCourse();
+    const { context } = this.props;
+    context.actions.getCourse(this.props.match.params.id)
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then(data => { this.setState( data.course ) })
+        } else if (response.status === 404) {
+          this.props.history.push('/notfound');
+        } else {
+          this.props.history.push('/error');
+        }
+    })
   }
 
   render() {
