@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import config from './config';
+
 import './global.css'
 
 class Courses extends Component {
 
   state = {} 
 
-  getCourses = () => {
-    fetch(config.apiBaseUrl + "/courses", { method: 'GET' })
-        .then(response => response.json())
-        .then(data => this.setState( { courses: data.courses } ))
-  }
-
   componentDidMount() {
-  	this.getCourses(); 	
+    const { context } = this.props;
+    context.actions.getCourses()
+      .then((response) => {
+        // response is Okay. parse into state.
+        if (response.status === 200) {
+          response.json().then(data => { this.setState( data ) })
+        // any other status code
+        } else {
+          this.props.history.push('/error');
+        }
+    })
   }
 
   render() {

@@ -22,6 +22,7 @@ export class Provider extends Component {
     const value = {
     	authenticatedUser,
     	actions: {
+        getCourses: this.getCourses,
         getCourse: this.getCourse,
         createCourse: this.createCourse,
         updateCourse: this.updateCourse,
@@ -43,6 +44,15 @@ export class Provider extends Component {
         { this.props.children }
       </Context.Provider>
       )
+  }
+
+  /*
+     Get all courses
+  */
+  async getCourses() {
+    const url = config.apiBaseUrl + "/courses";
+    const response = await fetch(url, { method: 'GET' });
+    return response;
   }
 
   /*
