@@ -10,16 +10,8 @@ export class Provider extends Component {
     return (Cookies.getJSON('authenticatedUser') || null );
   }
 
-  state = {
-    authenticatedUser: this.getAuthUser(),
-  }
-
   render() {
-
-    const { authenticatedUser } = this.state;
-
     const value = {
-    	authenticatedUser,
     	actions: {
         getCourses: this.getCourses,
         getCourse: this.getCourse,
@@ -33,10 +25,6 @@ export class Provider extends Component {
         formatErrors: this.formatErrors,
     	}
     };
-
-    if (value.authenticatedUser) {
-    	console.log("Existing authenticated user", value.authenticatedUser.emailAddress);
-    }
 
     return (
       <Context.Provider value={value}>
@@ -134,7 +122,7 @@ export class Provider extends Component {
   /*
      Authenticate the user credentials
        @param user - object containing name and password to pass to Get /api/users
-       @returns response status code of 200 or 401
+       @returns http response
 
        packages 'user' parameter into HTTP Authorization header
        if authentication succeeds a browser cookie is created named
