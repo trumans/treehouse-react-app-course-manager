@@ -109,6 +109,13 @@ redirects to /courses
 # Client / Front-end Project Structure
 /client directory
 
+## Primary Packages
+* js-cookie
+* react
+* react-dom
+* react-markdown
+* react-router-dom
+
 ## File Structure
 
 ** Primary Files **
