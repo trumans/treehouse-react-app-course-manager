@@ -39,12 +39,6 @@ class UserSignUp extends Component {
       });
   }
 
-  // Redirect to home page
-  cancelForm = (event) => {
-    event.preventDefault();
-    this.props.history.push('/')
-  }
-
   changeTextInput = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -114,10 +108,10 @@ class UserSignUp extends Component {
               className="button"
               type="submit"
             >Sign Up</button>
-            <button
+            <Link
               className="button button-secondary"
-              onClick={this.cancelForm}
-            >Cancel</button>
+              to="/courses"
+            >Cancel</Link>
           </div>
         </form>
       </React.Fragment>

@@ -25,7 +25,6 @@ class UserSignIn extends Component {
     context.actions.signIn({ name: emailAddress, password: password })
       .then((response) => {
         if (response.status === 200) {
-          const a = context.actions.getAuthUser();
           const from = this.props.location.from;
           if (from) {
             this.props.history.push(from.pathname);
@@ -38,12 +37,6 @@ class UserSignIn extends Component {
           this.props.history.push('/error');
         }
       });
-  }
-
-  // Redirect to home page
-  cancelForm = (event) => {
-  	event.preventDefault();
-  	this.props.history.push('/')
   }
 
   changeTextInput = (event) => {
@@ -95,10 +88,10 @@ class UserSignIn extends Component {
               className="button"
               type="submit"
             >Sign In</button>
-            <button
+            <Link
               className="button button-secondary"
-              onClick={this.cancelForm}
-            >Cancel</button>
+              to="/courses"
+            >Cancel</Link>
           </div>
         </form>
       </React.Fragment>

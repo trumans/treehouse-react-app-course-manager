@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { Consumer } from './Context';
 import Header from './Header';
@@ -40,12 +40,6 @@ class CreateCourse extends Component {
           this.props.history.push('/error');
         }
       });
-  }
-
-  // Redirect to home page
-  cancelForm = (event) => {
-    event.preventDefault();
-    this.props.history.push('/')
   }
 
   changeTextInput = (event) => {
@@ -134,10 +128,10 @@ class CreateCourse extends Component {
                 className="button"
                 type="submit"
               >Create Course</button>
-              <button
+              <Link
                 className="button button-secondary"
-                onClick={this.cancelForm}
-              >Cancel</button>
+                to="/courses"
+              >Cancel</Link>
             </div>
           </form>
         </React.Fragment>
