@@ -25,7 +25,7 @@ class UserSignIn extends Component {
     context.actions.signIn({ name: emailAddress, password: password })
       .then((response) => {
         if (response.status === 200) {
-          const from = this.props.location.from;
+          const { from } = this.props.location.state;
           if (from) {
             this.props.history.push(from.pathname);
           } else {
