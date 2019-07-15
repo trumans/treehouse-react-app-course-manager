@@ -80,7 +80,7 @@ redirects to /courses
 * Displays the course title, description, time and materials
 * Buttons to edit and delete the course are displayed if the current user created the course.
 * The Return to List button redirects to the courses pages.
-* Delete button calls the function to delete the course. If successful the app redirects to courses list page.
+* Delete button calls the function to delete the course. If successful the app redirects to courses list page, otherwise to an error page.
 
 ## CreateCourse
 /courses/create
