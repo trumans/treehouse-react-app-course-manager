@@ -91,6 +91,7 @@ class UserSignUp extends Component {
               value={password}
               placeholder="Password"
               onChange={this.changeTextInput}
+              autoComplete="off"
             />
           </div>
           <div>
@@ -101,6 +102,7 @@ class UserSignUp extends Component {
               value={confirmPassword}
               placeholder="Confirm Password"
               onChange={this.changeTextInput}
+              autoComplete="off"
             />
           </div>
           <div className="grid-100 pad-bottom">

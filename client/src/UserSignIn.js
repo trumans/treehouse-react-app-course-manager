@@ -81,6 +81,7 @@ class UserSignIn extends Component {
               value={password}
               placeholder="Password"
               onChange={this.changeTextInput}
+              autoComplete="off"
             />
           </div>
           <div className="grid-100 pad-bottom">
