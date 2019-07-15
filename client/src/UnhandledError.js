@@ -1,11 +1,15 @@
 import React from 'react';
+import Header from './Header';
 import './global.css'
 
 const UnhandledError = () => {
   return (
-    <div className="bounds">
-      <h1>Error</h1>
-      <p>Sorry! We just encountered an unexpected error.</p>
+    <div>
+      <Header />
+      <div className="bounds">
+        <h1>Error</h1>
+        <p>Sorry! We just encountered an unexpected error.</p>
+      </div>
     </div>
   );
 }
