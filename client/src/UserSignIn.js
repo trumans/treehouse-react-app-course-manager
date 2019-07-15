@@ -18,14 +18,15 @@ class UserSignIn extends Component {
   //   If authentication succeeds redirect to home page
   //   otherwise clear page and display error message
   submitForm = (event) => {
-    const { context } = this.props;
+    const { location } = this.props;
+    const { actions } = this.props.context;
     const { emailAddress, password } = this.state;
 
     event.preventDefault();
-    context.actions.signIn({ name: emailAddress, password: password })
+    actions.signIn({ name: emailAddress, password: password })
       .then((response) => {
         if (response.status === 200) {
-          const { from } = this.props.location.state;
+          const from = (location.state ? location.state.from : null);
           if (from) {
             this.props.history.push(from.pathname);
           } else {
@@ -99,7 +100,7 @@ class UserSignIn extends Component {
 
   	return (
       <Consumer>
-        { (context) => {
+        { () => {
           return (
             <div>
               <Header />
