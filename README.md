@@ -78,6 +78,7 @@ redirects to /courses
 
 * If the course id in the URL is not a valid course id the app redirects to the Not Found page.
 * Displays the course title, description, time and materials
+* The course description and materials fields are displayed using the markdown format. For example, lines beginning with a \*, - or + are are displayed as an unordered list. Lines separated by two new-line characters are displayed with blank line between them. 
 * Buttons to edit and delete the course are displayed if the current user created the course.
 * The Return to List button redirects to the courses pages.
 * Delete button calls the function to delete the course. If successful the app redirects to courses list page, otherwise to an error page.

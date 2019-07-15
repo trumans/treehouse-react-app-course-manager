@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import ReactMarkdown from 'react-markdown';
 
 import { Consumer } from './Context';
 import Header from './Header';
@@ -74,7 +75,7 @@ class CourseDetail extends Component {
             </div>
 
             <div className="course--description">
-              <p>{description}</p>
+              <ReactMarkdown source={description} />
             </div>
           </div>
 
@@ -89,9 +90,7 @@ class CourseDetail extends Component {
 
                 <li className="course--stats--list-item">
                   <h4>Materials Needed</h4>
-                  <ul>
-                    <li>{materialsNeeded}</li>
-                  </ul>
+                  <ReactMarkdown source={materialsNeeded} />
                 </li>
 
               </ul>
