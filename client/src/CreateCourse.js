@@ -141,25 +141,18 @@ class CreateCourse extends Component {
     return (
       <Consumer>
         { (context) => {
-          const authUser = context.actions.getAuthUser();
-          if (authUser) {
-            return (
-              <div>
-                <Header />
-                <div className="bounds course--detail">
-                  <h1>Create Course</h1>
-                  <div>
-                    {context.actions.formatErrors(errors)}
-                    {form(authUser)}
-                  </div>
+          return (
+            <div>
+              <Header />
+              <div className="bounds course--detail">
+                <h1>Create Course</h1>
+                <div>
+                  {context.actions.formatErrors(errors)}
+                  {form(context.actions.getAuthUser())}
                 </div>
               </div>
-            )
-          } else {
-            return (
-              <Redirect to={{pathname: "/signin",  from: this.props.location}} />
-            )
-          }
+            </div>
+          )
         }}
       </Consumer>
     )

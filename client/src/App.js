@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 
+import PrivateRoute   from './PrivateRoute';
 import Courses        from './Courses';
 import CourseDetail   from './CourseDetail';
 import CreateCourse   from './CreateCourse';
@@ -35,8 +36,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/courses`} /> } />
             <Route exact path="/courses" component={CoursesAndContext} />
-            <Route path="/courses/:id/update" component={UpdateCourseAndContext} />
-            <Route path="/courses/create" component={CreateCourseAndContext} />
+            <PrivateRoute path="/courses/:id/update" component={UpdateCourseAndContext} />
+            <PrivateRoute path="/courses/create" component={CreateCourseAndContext} />
             <Route path="/courses/:id" component={CourseDetailAndContext} />
             <Route path="/signin" component={UserSignInAndContext} />
             <Route path="/signup" component={UserSignUpAndContext} />
