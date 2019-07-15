@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Consumer } from './Context';
 import Header from './Header';
@@ -147,10 +147,10 @@ class UpdateCourse extends Component {
                 className="button"
                 type="submit"
               >Update Course</button>
-              <button
+              <Link
                 className="button button-secondary"
-                onClick={() => {this.props.history.push(`/courses/${id}`)}}
-              >Cancel</button>
+                to={`/courses/${id}`}
+              >Cancel</Link>
             </div>
           </form>
         </React.Fragment>
@@ -160,25 +160,18 @@ class UpdateCourse extends Component {
     return (
       <Consumer>
         { (context) => {
-          const authUser = context.actions.getAuthUser();
-          if (authUser) {
-            return (
-              <div>
-                <Header />
-                <div className="bounds course--detail">
-                  <h1>Update Course</h1>
-                  <div>
-                    {context.actions.formatErrors(errors)}
-                    {form()}
-                  </div>
+          return (
+            <div>
+              <Header />
+              <div className="bounds course--detail">
+                <h1>Update Course</h1>
+                <div>
+                  {context.actions.formatErrors(errors)}
+                  {form()}
                 </div>
               </div>
-            )
-          } else {
-            return (
-              <Redirect to={{pathname: "/signin",  from: this.props.location}} />
-            )
-          }
+            </div>
+          )
         }}
       </Consumer>
     )
