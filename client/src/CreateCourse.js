@@ -125,14 +125,17 @@ class CreateCourse extends Component {
             </div>
 
             <div className="grid-100 pad-bottom">
+
               <button
                 className="button"
                 type="submit"
               >Create Course</button>
+
               <Link
                 className="button button-secondary"
-                to="/courses"
+                to="/"
               >Cancel</Link>
+
             </div>
           </form>
         </React.Fragment>
