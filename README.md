@@ -97,7 +97,7 @@ redirects to /courses
 /courses/:id/update
 
 * The user is directed to the page from the course detail page Update Course button.
-* If a user enters the URL and there is no current login the app redirects to sign-in page which returns to update course when login is successful.
+* If a user enters the URL in the browser and there is no current login the app redirects to sign-in page which returns to update course when login is successful.
 * If the course id in the URL is not a valid course id the app redirects to the Not Found page.
 * If the course owner is not the current login the app redirects to the Forbidden page.
 * Displays the course data in a form for editing. The Update Course button submits the update.
