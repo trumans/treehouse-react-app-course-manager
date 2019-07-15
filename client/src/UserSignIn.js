@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+
 import { Consumer } from './Context';
+import Header from './Header';
 import './global.css'
 
 class UserSignIn extends Component {
@@ -24,8 +26,6 @@ class UserSignIn extends Component {
       .then((response) => {
         if (response.status === 200) {
           const a = context.actions.getAuthUser();
-          console.log("in sign in submit form. auth user cookie", a);
-          this.setState({ authd: 'yes' })
           const from = this.props.location.from;
           if (from) {
             this.props.history.push(from.pathname);
@@ -33,10 +33,7 @@ class UserSignIn extends Component {
             this.props.history.push('/');
           }
         } else if (response.status === 401 ) {
-          this.setState({
-            authd: '',
-            error: 'Authentication Failed',
-          });
+          this.setState({ error: 'Authentication Failed' });
         } else {
           this.props.history.push('/error');
         }
@@ -110,14 +107,17 @@ class UserSignIn extends Component {
       <Consumer>
         { (context) => {
           return (
-            <div className="bounds">
-              <div className="grid-33 centered signin">
-                <h1>Sign In</h1>
-                {errorMessage}
-                {form}
-  	          </div>
-              <div className="grid-33 centered signin">
-                <p>Don't have a user account? <Link to="/signup">Click here</Link> to sign up!</p>
+            <div>
+              <Header />
+              <div className="bounds">
+                <div className="grid-33 centered signin">
+                  <h1>Sign In</h1>
+                  {errorMessage}
+                  {form}
+                </div>
+                <div className="grid-33 centered signin">
+                  <p>Don't have a user account? <Link to="/signup">Click here</Link> to sign up!</p>
+                </div>
               </div>
             </div>
           )

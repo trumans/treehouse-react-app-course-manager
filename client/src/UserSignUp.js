@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+
 import { Consumer } from './Context';
-import './global.css'
+import Header from './Header';
+import './global.css';
 
 class UserSignUp extends Component {
 
@@ -25,14 +27,12 @@ class UserSignUp extends Component {
     event.preventDefault();
     const user = { firstName, lastName, emailAddress, password, confirmPassword }
     context.actions.signUp(user)
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === 201) {
-          context.actions.signIn({name: emailAddress, password: password}) 
+          await context.actions.signIn({name: emailAddress, password: password});
           this.props.history.push('/');
         } else if (response.status === 400 ) {
-          response.json().then ((errors) => {
-            this.setState(errors);
-          });
+          response.json().then ((errors) => { this.setState(errors) });
         } else {
           this.props.history.push('/error');
         }
@@ -126,14 +126,17 @@ class UserSignUp extends Component {
       <Consumer>
         { (context) => {
           return (
-            <div className="bounds">
-              <div className="grid-33 centered signup">
-                <h1>Sign Up</h1>
-                {context.actions.formatErrors(errors)}
-                {form}
-              </div>
-              <div className="grid-33 centered signup">
-                <p>Already have a user account? <Link to="/signin">Click here</Link> to sign in!</p>
+            <div>
+              <Header />
+              <div className="bounds">
+                <div className="grid-33 centered signup">
+                  <h1>Sign Up</h1>
+                  {context.actions.formatErrors(errors)}
+                  {form}
+                </div>
+                <div className="grid-33 centered signup">
+                  <p>Already have a user account? <Link to="/signin">Click here</Link> to sign in!</p>
+                </div>
               </div>
             </div>
           )

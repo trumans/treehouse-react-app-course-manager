@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
+import Header from './Header';
 import './global.css'
 
 class Courses extends Component {
@@ -34,9 +35,12 @@ class Courses extends Component {
     }
 
   	return (
-      <div className='bounds'>
-        { tiles }
-        <NewCourseTile />
+      <div>
+        <Header />
+        <div className='bounds'>
+          { tiles }
+          <NewCourseTile />
+        </div>
       </div>
   	)
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
 import { Consumer } from './Context';
+import Header from './Header';
 import './global.css';
 
 class CourseDetail extends Component {
@@ -124,22 +125,24 @@ class CourseDetail extends Component {
               <React.Fragment></React.Fragment>
 
           return (
-            <React.Fragment>
-            <div className="actions--bar">
-              <div className="bounds">
-                <div className="grid-100">
-                  <span>{changeButtons}</span>
-                  <a className="button button-secondary" href="/courses">Return to List</a>
+            <div>
+              <Header />
+
+              <div className="actions--bar">
+                <div className="bounds">
+                  <div className="grid-100">
+                    <span>{changeButtons}</span>
+                    <a className="button button-secondary" href="/courses">Return to List</a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bounds course--detail">
+                <div>
+                  {details()}
                 </div>
               </div>
             </div>
-
-            <div className="bounds course--detail">
-              <div>
-                {details()}
-              </div>
-            </div>
-            </React.Fragment>
           )
 
         }}

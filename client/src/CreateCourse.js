@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
 import { Consumer } from './Context';
+import Header from './Header';
 import './global.css';
 
 class CreateCourse extends Component {
@@ -149,11 +150,14 @@ class CreateCourse extends Component {
           const authUser = context.actions.getAuthUser();
           if (authUser) {
             return (
-              <div className="bounds course--detail">
-                <h1>Create Course</h1>
-                <div>
-                  {context.actions.formatErrors(errors)}
-                  {form(authUser)}
+              <div>
+                <Header />
+                <div className="bounds course--detail">
+                  <h1>Create Course</h1>
+                  <div>
+                    {context.actions.formatErrors(errors)}
+                    {form(authUser)}
+                  </div>
                 </div>
               </div>
             )

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { Consumer } from './Context';
 import './global.css';
 
 const Header = () => {
-  console.log("rendering header")
   return (
     <Consumer>
       { ({ actions }) => {

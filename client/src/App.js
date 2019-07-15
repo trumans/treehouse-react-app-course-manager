@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 
-import Header from './Header';
-
 import Courses        from './Courses';
 import CourseDetail   from './CourseDetail';
 import CreateCourse   from './CreateCourse';
@@ -34,7 +32,6 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="container">
-          <Header />
           <Switch>
             <Route exact path="/" render={ () => <Redirect to={`/courses`} /> } />
             <Route exact path="/courses" component={CoursesAndContext} />

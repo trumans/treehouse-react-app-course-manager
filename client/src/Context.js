@@ -7,7 +7,6 @@ const Context = React.createContext();
 export class Provider extends Component {
 
   getAuthUser() {
-    console.log("in getAuthUser", Cookies.getJSON('authenticatedUser'));
     return (Cookies.getJSON('authenticatedUser') || null );
   }
 
@@ -155,11 +154,11 @@ export class Provider extends Component {
 
     const response = await fetch(url, options);
     if (response.status === 200) {
-    	response.json().then( async (user) => {
+      await response.json().then( async (user) => {
           const cookieData = user.user;
           cookieData.authorization = encodedCredentials;
-          await Cookies.set('authenticatedUser', JSON.stringify(cookieData), { expires: 7 })
-    	    console.log("set cookie", cookieData);
+          await Cookies.set(
+            'authenticatedUser', JSON.stringify(cookieData), { expires: 7 })
       })
     } else if (response.status === 401) {
         // Perhaps unnecesssary but remove any authentication cookies
