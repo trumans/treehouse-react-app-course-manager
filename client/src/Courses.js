@@ -6,7 +6,7 @@ import './global.css'
 
 class Courses extends Component {
 
-  state = {} 
+  state = { courses: [] }
 
   componentDidMount() {
     const { context } = this.props;
@@ -23,22 +23,17 @@ class Courses extends Component {
   }
 
   render() {
-  	let tiles = null
-  	if (this.state.courses !== undefined) {
-      tiles = this.state.courses.map((course) =>
-        <CourseTile
-          title={course.title}
-          courseId={course.id}
-          key={course.id}
-        />
-      )
-    }
-
   	return (
       <div>
         <Header />
         <div className='bounds'>
-          { tiles }
+          { this.state.courses.map((course) =>
+            <CourseTile
+              title={course.title}
+              courseId={course.id}
+              key={course.id}
+            />
+          )}
           <NewCourseTile />
         </div>
       </div>
