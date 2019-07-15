@@ -20,24 +20,23 @@ class CreateCourse extends Component {
   //   If a new course is created redirect to course detail
   //   otherwise display error messages
   submitForm = (event) => {
-    const { context } = this.props;
+    const { actions } = this.props.context;
+    const { history } = this.props;
     const { title, description, estimatedTime, materialsNeeded } = this.state;
-    const authUser = context.actions.getAuthUser();
+    const authUser = actions.getAuthUser();
 
     event.preventDefault();
     const course = { title, description, estimatedTime, materialsNeeded }
     course.userId = authUser.id;
 
-    context.actions.createCourse(course)
+    actions.createCourse(course)
       .then((response) => {
         if (response.status === 201) {
-          this.props.history.push('/');
+          history.push('/');
         } else if (response.status === 400 ) {
-          response.json().then ((errors) => {
-            this.setState(errors);
-          });
+          response.json().then((errors) => { this.setState(errors) });
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
       });
   }
@@ -51,9 +50,11 @@ class CreateCourse extends Component {
 
   render() {
 
+    const { actions } = this.props.context;
     const { title, description, estimatedTime, materialsNeeded, errors } = this.state;
 
-    const form = (user) => {
+    const form = () => {
+      const user = actions.getAuthUser();
       return (
         <React.Fragment>
           <form onSubmit={this.submitForm}>
@@ -140,15 +141,15 @@ class CreateCourse extends Component {
 
     return (
       <Consumer>
-        { (context) => {
+        { () => {
           return (
             <div>
               <Header />
               <div className="bounds course--detail">
                 <h1>Create Course</h1>
                 <div>
-                  {context.actions.formatErrors(errors)}
-                  {form(context.actions.getAuthUser())}
+                  {actions.formatErrors( errors )}
+                  {form()}
                 </div>
               </div>
             </div>

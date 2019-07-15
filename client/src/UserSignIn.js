@@ -18,7 +18,7 @@ class UserSignIn extends Component {
   //   If authentication succeeds redirect to home page
   //   otherwise clear page and display error message
   submitForm = (event) => {
-    const { location } = this.props;
+    const { location, history } = this.props;
     const { actions } = this.props.context;
     const { emailAddress, password } = this.state;
 
@@ -28,14 +28,14 @@ class UserSignIn extends Component {
         if (response.status === 200) {
           const from = (location.state ? location.state.from : null);
           if (from) {
-            this.props.history.push(from.pathname);
+            history.push(from.pathname);
           } else {
-            this.props.history.push('/');
+            history.push('/');
           }
         } else if (response.status === 401 ) {
           this.setState({ error: 'Authentication Failed' });
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
       });
   }

@@ -10,10 +10,10 @@ import { Consumer } from './Context';
 export default ({ component: Component, ...rest }) => {
   return (
     <Consumer>
-      { context => (
+      { ({ actions }) => (
         <Route
           {...rest}
-          render={props => context.actions.getAuthUser() ? (
+          render={props => actions.getAuthUser() ? (
               <Component {...props} />
             ) : (
               <Redirect to={{

@@ -9,15 +9,16 @@ class Courses extends Component {
   state = { courses: [] }
 
   componentDidMount() {
-    const { context } = this.props;
-    context.actions.getCourses()
+    const { actions } = this.props.context;
+    const { history } = this.props;
+    actions.getCourses()
       .then((response) => {
         // response is Okay. parse into state.
         if (response.status === 200) {
           response.json().then(data => { this.setState( data ) })
         // any other status code
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
     })
   }

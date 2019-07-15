@@ -22,17 +22,18 @@ class UpdateCourse extends Component {
   //   otherwise display error messages
   submitForm = (event) => {
     event.preventDefault();
-    const { context } = this.props;
-    context.actions.updateCourse(this.state)
+    const { actions } = this.props.context;
+    const { history, match } = this.props;
+    actions.updateCourse(this.state)
       .then((response) => {
         if (response.status === 204) {
-          this.props.history.push('/courses/' + this.props.match.params.id);
+          history.push('/courses/' + match.params.id);
         } else if (response.status === 400 ) {
           response.json().then ((errors) => {
             this.setState(errors);
           });
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
       });
   }
@@ -45,9 +46,10 @@ class UpdateCourse extends Component {
   }
 
   componentDidMount() {
-    const { context } = this.props;
-    const authUser = context.actions.getAuthUser()
-    context.actions.getCourse(this.props.match.params.id)
+    const { actions } = this.props.context;
+    const { history, match } = this.props;
+    const authUser = actions.getAuthUser()
+    actions.getCourse(match.params.id)
       .then((response) => {
         // a course was returned. parse into state.
         if (response.status === 200) {
@@ -55,15 +57,15 @@ class UpdateCourse extends Component {
             this.setState( data.course );
             // if course owner is not current user then redirect to forbidden
             if (this.state.userId !== authUser.id) {
-              this.props.history.push('/forbidden');
+              history.push('/forbidden');
             }
           });
         // no course was returned
         } else if (response.status === 404) {
-          this.props.history.push('/notfound');
+          history.push('/notfound');
         // any other status code
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
     })
   }
@@ -159,14 +161,14 @@ class UpdateCourse extends Component {
 
     return (
       <Consumer>
-        { (context) => {
+        { ({ actions }) => {
           return (
             <div>
               <Header />
               <div className="bounds course--detail">
                 <h1>Update Course</h1>
                 <div>
-                  {context.actions.formatErrors(errors)}
+                  {actions.formatErrors( errors )}
                   {form()}
                 </div>
               </div>

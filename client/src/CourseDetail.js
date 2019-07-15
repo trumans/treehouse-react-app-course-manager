@@ -21,48 +21,50 @@ class CourseDetail extends Component {
   //   If the course is deleted redirect to courses list
   //   otherwise redirect as per status code
   handleDeleteCourse = (courseId) => {
-    const { context } = this.props;
-    context.actions.deleteCourse(courseId)
+    const { actions } = this.props.context;
+    const { history } = this.props;
+    actions.deleteCourse(courseId)
       .then((response) => {
         // delete was successful. redirect to courses list
         if (response.status === 204) {
-          this.props.history.push('/courses');
+          history.push('/courses');
         // delete was not allowed. redirect to Forbidden page
         } else if (response.status === 403 ) {
-          this.props.history.push('/forbidden');
+          history.push('/forbidden');
         // course id was not found. redirect to Not Found page
         } else if (response.status === 404 ) {
-          this.props.history.push('/notfound');
+          history.push('/notfound');
         // all other status codes
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
       });
   }
 
   componentDidMount() {
-    const { context } = this.props;
-    context.actions.getCourse(this.props.match.params.id)
+    const { actions} = this.props.context;
+    const { history, match } = this.props;
+    actions.getCourse(match.params.id)
       .then((response) => {
         // a course was returned. parse into state.
         if (response.status === 200) {
           response.json().then(data => { this.setState( data.course ) })
         // no course was returned
         } else if (response.status === 404) {
-          this.props.history.push('/notfound');
+          history.push('/notfound');
         // any other status code
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
     })
   }
 
   render() {
-    const { context } = this.props;
+    const { actions } = this.props.context;
     const { title, description, estimatedTime, materialsNeeded } = this.state;
     const owner = this.state.User;
     const courseId = this.state.id;
-    const authUser = context.actions.getAuthUser();
+    const authUser = actions.getAuthUser();
 
     const details = () => {
       return (
@@ -102,7 +104,7 @@ class CourseDetail extends Component {
 
     return (
       <Consumer>
-        { (context) => {
+        { () => {
           const changeButtons =
             // if the auth'd user is the same as the course owner
             //   include the update and delete buttons

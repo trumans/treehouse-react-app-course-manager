@@ -21,20 +21,22 @@ class UserSignUp extends Component {
   //   If a new user is created sign in and redirect to home page
   //   otherwise display error messages
   submitForm = (event) => {
-    const { context } = this.props;
-    const { firstName, lastName, emailAddress, password, confirmPassword } = this.state;
-
     event.preventDefault();
+    const { actions } = this.props.context;
+    const { history } = this.props;
+    const { firstName, lastName, emailAddress, password, confirmPassword }
+      = this.state;
     const user = { firstName, lastName, emailAddress, password, confirmPassword }
-    context.actions.signUp(user)
+
+    actions.signUp(user)
       .then(async (response) => {
         if (response.status === 201) {
-          await context.actions.signIn({name: emailAddress, password: password});
-          this.props.history.push('/');
+          await actions.signIn({name: emailAddress, password: password});
+          history.push('/');
         } else if (response.status === 400 ) {
           response.json().then ((errors) => { this.setState(errors) });
         } else {
-          this.props.history.push('/error');
+          history.push('/error');
         }
       });
   }
@@ -120,14 +122,14 @@ class UserSignUp extends Component {
 
     return (
       <Consumer>
-        { (context) => {
+        { ({ actions }) => {
           return (
             <div>
               <Header />
               <div className="bounds">
                 <div className="grid-33 centered signup">
                   <h1>Sign Up</h1>
-                  {context.actions.formatErrors(errors)}
+                  {actions.formatErrors(errors)}
                   {form}
                 </div>
                 <div className="grid-33 centered signup">
