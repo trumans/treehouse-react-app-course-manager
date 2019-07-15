@@ -43,7 +43,7 @@ If the application starts successfully a browser window/tab opens in courses pag
 # Pages
 App base URL is http://localhost:3000
 
-Page headers have a navigation bar with either Sign Up and Sign In links (if the is no active user) or the current user name and a Sign Out link.
+Page headers have a navigation bar with either Sign Up and Sign In links (if the is no active user) or the current login name and a Sign Out link.
 
 ## Home page
 redirects to /courses
@@ -79,30 +79,31 @@ redirects to /courses
 * If the course id in the URL is not a valid course id the app redirects to the Not Found page.
 * Displays the course title, description, time and materials
 * The course description and materials fields are displayed using the markdown format. For example, lines beginning with a \*, - or + are are displayed as an unordered list. Lines separated by two new-line characters are displayed with blank line between them. 
-* Buttons to edit and delete the course are displayed if the current user created the course.
+* Buttons to edit and delete the course are displayed if the current login created the course.
 * The Return to List button redirects to the courses pages.
 * Delete button calls the function to delete the course. If successful the app redirects to courses list page, otherwise to an error page.
 
 ## CreateCourse
 /courses/create
 
-* If there is no current user the app redirects to sign-in page which returns to create course when sign-in is successful.
+* If there is no current login the app redirects to sign-in page which returns to create course when login is successful.
 * Displays a form to enter course data. The Create Course button submits the course data.
 * If the course is created the app redirects to the course list
 * If the course is not created due to validation errors the errors are displayed.
-* Uses the current user for name and id of the course owner.
+* Uses the current login for name and id of the course owner.
 * The Cancel button returns to courses page.
 
 ## UpdateCourse
 /courses/:id/update
 
 * The user is directed to the page from the course detail page Update Course button.
+* If a user enters the URL and there is no current login the app redirects to sign-in page which returns to update course when login is successful.
 * If the course id in the URL is not a valid course id the app redirects to the Not Found page.
-* If the course owner is not the current user the app redirects to the Forbidden page.
+* If the course owner is not the current login the app redirects to the Forbidden page.
 * Displays the course data in a form for editing. The Update Course button submits the update.
 * If the update is successful the app redirect to the course detail page.
 * If the course is not updated due to validation errors the errors are displayed.
-* Uses the current user for user name and id associated with course.
+* Uses the current login for user name and id associated with course.
 * The Cancel button returns to course detail page.
 
 ## Comments on code organization
