@@ -21,9 +21,9 @@ class CourseDetail extends Component {
   //   If the course is deleted redirect to courses list
   //   otherwise redirect as per status code
   handleDeleteCourse = (courseId) => {
-    const { actions } = this.props.context;
+    const { actions, authenticatedUser } = this.props.context;
     const { history } = this.props;
-    actions.deleteCourse(courseId)
+    actions.deleteCourse(courseId, authenticatedUser)
       .then((response) => {
         // delete was successful. redirect to courses list
         if (response.status === 204) {
@@ -60,11 +60,10 @@ class CourseDetail extends Component {
   }
 
   render() {
-    const { actions } = this.props.context;
+    const { authenticatedUser } = this.props.context;
     const { title, description, estimatedTime, materialsNeeded } = this.state;
     const owner = this.state.User;
     const courseId = this.state.id;
-    const authUser = actions.getAuthUser();
 
     const details = () => {
       return (
@@ -108,7 +107,7 @@ class CourseDetail extends Component {
           const changeButtons =
             // if the auth'd user is the same as the course owner
             //   include the update and delete buttons
-            (authUser && authUser.id === owner.id) ?
+            (authenticatedUser && authenticatedUser.id === owner.id) ?
               <React.Fragment>
 
                 <a

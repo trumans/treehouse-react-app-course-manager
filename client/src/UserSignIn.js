@@ -18,14 +18,16 @@ class UserSignIn extends Component {
   //   If authentication succeeds redirect to home page
   //   otherwise clear page and display error message
   submitForm = (event) => {
-    const { location, history } = this.props;
-    const { actions } = this.props.context;
+    const { location, history, context } = this.props;
+    const { actions } = context;
     const { emailAddress, password } = this.state;
 
     event.preventDefault();
+
     actions.signIn({ name: emailAddress, password: password })
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === 200) {
+          context.authenticatedUser = await actions.getAuthCookie();
           const from = (location.state ? location.state.from : null);
           if (from) {
             history.push(from.pathname);

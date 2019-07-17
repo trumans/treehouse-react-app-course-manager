@@ -6,13 +6,11 @@ const Context = React.createContext();
 
 export class Provider extends Component {
 
-  getAuthUser() {
-    return (Cookies.getJSON('authenticatedUser') || null );
-  }
-
   render() {
     const value = {
+      authenticatedUser: Cookies.getJSON('authenticatedUser'),
     	actions: {
+        getAuthCookie: this.getAuthCookie,
         getCourses: this.getCourses,
         getCourse: this.getCourse,
         createCourse: this.createCourse,
@@ -21,7 +19,6 @@ export class Provider extends Component {
     		signIn: this.signIn,
         signUp: this.signUp,
     		signOut: this.signOut,
-    		getAuthUser: this.getAuthUser,
         formatErrors: this.formatErrors,
     	}
     };
@@ -31,6 +28,13 @@ export class Provider extends Component {
         { this.props.children }
       </Context.Provider>
       )
+  }
+
+  /*
+     Get the authentication cookie
+  */
+  async getAuthCookie() {
+    return (await Cookies.getJSON('authenticatedUser'));
   }
 
   /*
@@ -56,16 +60,15 @@ export class Provider extends Component {
        @param course - object containing new course data pass to Post /api/course
        @returns response
   */
-  async createCourse(course) {
+  async createCourse(course, user) {
     const url = config.apiBaseUrl + '/courses';
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(course),
     };
-    const encodedCredentials = this.getAuthUser().authorization;
-    options.headers['Authorization'] = `Basic ${encodedCredentials}`;
 
+    options.headers['Authorization'] = `Basic ${user.authorization}`;
     const response = await fetch(url, options);
     if (response.status !== 201 && response.status !== 400) {
         console.warn("course create returned status", response.status);
@@ -79,16 +82,15 @@ export class Provider extends Component {
        @param course - object containing course data pass to Put /api/course
        @returns response
   */
-  async updateCourse(course) {
+  async updateCourse(course, user) {
     const url = config.apiBaseUrl + '/courses/' + course.id;
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(course),
     };
-    const encodedCredentials = this.getAuthUser().authorization;
-    options.headers['Authorization'] = `Basic ${encodedCredentials}`;
 
+    options.headers['Authorization'] = `Basic ${user.authorization}`;
     const response = await fetch(url, options);
     if (response.status !== 204 && response.status !== 400) {
         console.warn("course create returned status", response.status);
@@ -102,15 +104,14 @@ export class Provider extends Component {
        @param id - id of course to be deletedto pass to Delete /api/courses/:id
        @returns response
   */
-  async deleteCourse(courseId) {
+  async deleteCourse(courseId, user) {
     const url = config.apiBaseUrl + '/courses/' + courseId;
     const options = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json; charset=utf-8' }
     };
-    const encodedCredentials = this.getAuthUser().authorization;
-    options.headers['Authorization'] = `Basic ${encodedCredentials}`;
 
+    options.headers['Authorization'] = `Basic ${user.authorization}`;
     const response = await fetch(url, options);
     if (![204, 403, 404].includes(response.status)) {
         console.warn("course delete returned status", response.status);
@@ -142,11 +143,12 @@ export class Provider extends Component {
 
     const response = await fetch(url, options);
     if (response.status === 200) {
+      // set cookie data. caller function should set context auth user
       await response.json().then( async (user) => {
           const cookieData = user.user;
           cookieData.authorization = encodedCredentials;
           await Cookies.set(
-            'authenticatedUser', JSON.stringify(cookieData), { expires: 7 })
+            'authenticatedUser', JSON.stringify(cookieData), { expires: 7 });
       })
     } else if (response.status === 401) {
         // Perhaps unnecesssary but remove any authentication cookies

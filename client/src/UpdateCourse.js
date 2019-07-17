@@ -22,9 +22,9 @@ class UpdateCourse extends Component {
   //   otherwise display error messages
   submitForm = (event) => {
     event.preventDefault();
-    const { actions } = this.props.context;
+    const { actions, authenticatedUser } = this.props.context;
     const { history, match } = this.props;
-    actions.updateCourse(this.state)
+    actions.updateCourse(this.state, authenticatedUser)
       .then((response) => {
         if (response.status === 204) {
           history.push('/courses/' + match.params.id);
@@ -46,9 +46,8 @@ class UpdateCourse extends Component {
   }
 
   componentDidMount() {
-    const { actions } = this.props.context;
-    const { history, match } = this.props;
-    const authUser = actions.getAuthUser()
+    const { history, match, context } = this.props;
+    const { actions, authenticatedUser } = context;
     actions.getCourse(match.params.id)
       .then((response) => {
         // a course was returned. parse into state.
@@ -56,7 +55,7 @@ class UpdateCourse extends Component {
           response.json().then(data => {
             this.setState( data.course );
             // if course owner is not current user then redirect to forbidden
-            if (this.state.userId !== authUser.id) {
+            if (this.state.userId !== authenticatedUser.id) {
               history.push('/forbidden');
             }
           });
@@ -71,7 +70,8 @@ class UpdateCourse extends Component {
   }
 
   render() {
-    const { id, title, description, estimatedTime, materialsNeeded, errors } = this.state;
+    const { id, title, description, estimatedTime, materialsNeeded, errors }
+      = this.state;
     const owner = this.state.User;
 
     const form = () => {

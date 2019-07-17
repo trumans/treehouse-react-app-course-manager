@@ -20,16 +20,15 @@ class CreateCourse extends Component {
   //   If a new course is created redirect to course detail
   //   otherwise display error messages
   submitForm = (event) => {
-    const { actions } = this.props.context;
+    const { actions, authenticatedUser } = this.props.context;
     const { history } = this.props;
     const { title, description, estimatedTime, materialsNeeded } = this.state;
-    const authUser = actions.getAuthUser();
 
     event.preventDefault();
     const course = { title, description, estimatedTime, materialsNeeded }
-    course.userId = authUser.id;
+    course.userId = authenticatedUser.id;
 
-    actions.createCourse(course)
+    actions.createCourse(course, authenticatedUser)
       .then((response) => {
         if (response.status === 201) {
           history.push('/');
@@ -50,11 +49,10 @@ class CreateCourse extends Component {
 
   render() {
 
-    const { actions } = this.props.context;
+    const { actions, authenticatedUser } = this.props.context;
     const { title, description, estimatedTime, materialsNeeded, errors } = this.state;
 
     const form = () => {
-      const user = actions.getAuthUser();
       return (
         <React.Fragment>
           <form onSubmit={this.submitForm}>
@@ -72,7 +70,7 @@ class CreateCourse extends Component {
                     placeholder="Course title..."
                     onChange={this.changeTextInput}
                   />
-                  <p>By {user.firstName} {user.lastName}</p>
+                  <p>By {authenticatedUser.firstName} {authenticatedUser.lastName}</p>
                 </div>
               </div>
 

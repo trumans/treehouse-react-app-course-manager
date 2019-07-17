@@ -7,9 +7,8 @@ import './global.css';
 const Header = () => {
   return (
     <Consumer>
-      { ({ actions }) => {
-
-        const authUser = actions.getAuthUser();
+      { (context) => {
+        const authUser = context.authenticatedUser;
         const nav =
           authUser ?
             <React.Fragment>
