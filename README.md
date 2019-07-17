@@ -65,24 +65,24 @@ Lists all courses by redirecting to /courses
 /signin
 
 * The user is redirected to this page by the Sign In link in the page header.
-* Displays a form contains email address (user name) and password. A Sign In button submits the form.
+* Displays a form to enter email address and password. A Sign In button submits the form.
 * Cancel button redirects to courses page.
 * After the Sign In button is clicked:
-  * If authentication is successful the page header is updated with the user name. If signing it was initiated from the header Sign In link the app redirects to the home page. If signing in was initiated by the Create Course or Update Course page requiring authentication the app redirects back to that page.
+  * If authentication is successful the page header is updated with the user name. If the sign-in was initiated from the header Sign In link the app redirects to the home page. If initiated by the Create Course or Update Course page, which requires authentication, the app redirects back to that page.
   * If authentication fails an error message is displayed.
 
 ## Courses
 /courses
 
-* Lists all courses as a set of tiles plus a New Course tile.
-* Clicking a tile opens corresponding the Course Detail page. 
+* Lists all courses as a set of tiles, plus a New Course tile.
+* Clicking a tile opens the corresponding the Course Detail page. 
 * Clicking the New Course tile opens the Create Course page.
 
 ## CourseDetail
-/courses/:id
+/courses/_id_
 
 * Displays the title, owner, description, time and materials for the course specified by id in the URL.
-* The course description and materials fields are displayed using the markdown format. For example, lines beginning with a \* are displayed as an unordered list. Two new-line characters starts a new paragraph. 
+* The course description and materials fields are formated with the markdown format. For example, lines beginning with a \* are displayed as an unordered list, and two new-line characters starts a new paragraph. 
 * Buttons to edit and delete the course are displayed if the current login created the course.
 * The Return to List button redirects to the courses pages.
 * Delete button calls the function to delete the course. If successful the app redirects to courses list page, otherwise to an error page.
@@ -93,25 +93,25 @@ Lists all courses by redirecting to /courses
 
 * If there is no current login the app redirects to sign-in page which returns to create course when login is successful.
 * Displays a form to enter course data. The Create Course button submits the course data.
-* If the course is created the app redirects to the course list
+* If the course is created the app redirects to the course list.
 * If the course is not created due to validation errors the errors are displayed.
 * Uses the current login for name and id as the course owner.
 * The Cancel button returns to courses page.
 
 ## UpdateCourse
-/courses/:id/update
+/courses/_id_/update
 
 * The user is directed to the page from the course detail page by the Update Course button.
-* Displays the course title, description, time and materials in a form for editing. The Update Course button submits the update.
+* Displays in a form for editig the course title, description, time and materials for the course specified by id in the URL. The Update Course button submits the update.
 * If the update is successful the app redirects to the course detail page.
 * If the course is not updated due to validation errors the errors are displayed.
 * The Cancel button returns to course detail page.
 * If a user enters the URL in the browser:
-  * and if there is no current login the app redirects to sign-in page which returns to update course when login is successful.
-  * or if the course owner is not the current login the app redirects to the Forbidden page.
+  * and if there is no current login the app redirects to sign-in page which returns to update course when login is successful,
+  * or if the course owner is not the current login the app redirects to the Forbidden page,
   * or if the course id in the URL is not a valid course id the app redirects to the Not Found page.
 
-# Application Front-end Directory Structure
+# Application Front-End Directory Structure
 /client directory
 
 ## Primary Packages
@@ -155,10 +155,10 @@ Lists all courses by redirecting to /courses
 
 ## Comments on code organization
 
-* Context.js contains the functions which call the REST APIs and return the response.
-* The Courses, CourseDetail, CreateCourse, UpdateCourse components call the relevant function in Context that get, create, update or delete a course(s). They check the API response and render the data returned, or based on the status code redirect to the Not Found, Forbidden or Error (unhandled status) pages.
-* The UserSignIn, UserSignUp components call the relavent function in Context to authenticate a signin or create a user. Based on the status code the app redirects if login is successful, or displays an error messages.
-* The REST API performs the primary data validation checks for creating a user or course, or updating a course. Errors messages regarding specific fields are included in the HTTP response along with a 4xx code.RESE
+* Context.js contains the functions which call the REST APIs and return the HTTP response.
+* The Courses, CourseDetail, CreateCourse, UpdateCourse components call the relevant function in Context that get, create, update or delete a course(s). They check the API response and render the data returned, or based on the status code will display validation errors or redirect to the Not Found, Forbidden or Error (unhandled status) pages.
+* The UserSignIn, UserSignUp components call the relavent function in Context to authenticate a signin or create a user. Based on the status code the app redirects if login or sign up was successful, or displays validation error message(s).
+* The REST API performs the primary data validation checks for creating a user or course, or updating a course. Errors messages regarding specific fields are included in the HTTP response along with a 4xx code.
 
 
 # REST API Service
