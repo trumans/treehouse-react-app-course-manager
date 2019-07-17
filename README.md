@@ -1,5 +1,6 @@
 
-**Notes to the Treehouse reviewer** 
+**Notes to the Treehouse reviewer**
+* User authentication is persisted in the Context component and a browser cookie. The user email and password are encoded and saved together for use in HTTP the authorization header.
 * The project includes the Extra Credit functionality for the Exceeds Expectations grade
   * Includes pages for conditions related to page not found, page access if forbidden (based on login), and unhandled error. Pages have user-friendly error messages.
   * User login persists across browser tabs by use of cookies.
