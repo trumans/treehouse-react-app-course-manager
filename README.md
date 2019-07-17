@@ -1,7 +1,9 @@
 
 **Notes to the Treehouse reviewer** 
-* The project includes 'Extra Credit' functionality for 'Exceeds Expectations' grade ...
-
+* The project includes the Extra Credit functionality for the Exceeds Expectations grade
+  * Includes pages for conditions related to page not found, page access if forbidden (based on login), and unhandled error. Pages have user-friendly error messages.
+  * User login persists across browser tabs by use of cookies.
+  * If user was directed to the signin page by the create course or update course pages, the user is redirected back to the previous page.
 
 # Installation
 
