@@ -2,15 +2,15 @@
 **Notes to the Treehouse reviewer**
 * User authentication is persisted in the Context component and a browser cookie. The user email and password are encoded and saved together for use in HTTP the authorization header.
 * The project includes the Extra Credit functionality for the Exceeds Expectations grade
-  * Includes pages for conditions related to page not found, page access if forbidden (based on login), and unhandled error. Pages have user-friendly error messages.
-  * User login persists across browser tabs by use of cookies.
-  * If user was directed to the signin page by the create course or update course pages, the user is redirected back to the previous page.
+  * Includes pages for conditions related to page not found, page access if forbidden, and unhandled error. Pages have user-friendly error messages.
+  * User login persists across browser tabs by use of a cookie.
+  * If user was directed to the signin page by the create course or update course pages, the user is redirected back to the previous page when signing in is successful.
 
 # Installation
 
 ## Installing the REST API
 
-1. In a terminal window navigate to the project folder, then to the api folder.
+1. In a terminal window navigate to the project folder, then to the ```api``` folder.
 2. Install npm modules with the command ```npm install```.
 3. Create the database with the command ```npm run seed```.
 The database is initially populated with two users and three courses. 
@@ -22,8 +22,8 @@ To reset database to its seed data
 3. Recreate the database with the command ```npm run seed```.
 4. Restart the application server with the command ```npm start```
 
-## Installing the web app front end
-1. In a terminal window navigate to the project folder, then to the client folder.
+## Installing the web application front end
+1. In a terminal window navigate to the project folder, then to the ```client``` folder.
 2. Install npm modules with the command ```npm install```.
 
 # Starting the application
@@ -44,12 +44,12 @@ Connected to database
 If the application starts successfully a browser window/tab opens in courses page.
 
 # Pages
-App base URL is http://localhost:3000
+The application base URL is http://localhost:3000
 
-Page headers have a navigation bar with either Sign Up and Sign In links (if the is no active user) or the current login name and a Sign Out link.
+Page headers have a navigation bar with either Sign Up and Sign In links (if the is no active user) or the current login name and a Sign Out link. The Courses text on the left side is a link to the home page.
 
 ## Home page
-redirects to /courses
+Lists all courses by redirecting to /courses
 
 ## User Sign Up
 /signup
@@ -57,8 +57,9 @@ redirects to /courses
 * The user is redirected to this page by the Sign Up link in the page header.
 * Displays a form to enter user data. A Sign Up button submits the data.
 * Cancel button redirects to courses page.
-* If a new user is created the page header is updated with the user name and the app redirects to the courses list page.
-* If a new user is not created the validation errors are listed.
+* After the Sign Up button is clicked:
+  * If a new user is created the app redirects to the home page and the page header is updated with the user name.
+  * If a new user is not created the validation errors are listed.
 
 ## User Sign In
 /signin
@@ -66,25 +67,26 @@ redirects to /courses
 * The user is redirected to this page by the Sign In link in the page header.
 * Displays a form contains email address (user name) and password. A Sign In button submits the form.
 * Cancel button redirects to courses page.
-* If authentication is successful the page header is updated and the app redirects to the courses list page.
-* If authentication fails an error message is displayed.
+* After the Sign In button is clicked:
+  * If authentication is successful the page header is updated with the user name. If signing it was initiated from the header Sign In link the app redirects to the home page. If signing in was initiated by the Create Course or Update Course page requiring authentication the app redirects back to that page.
+  * If authentication fails an error message is displayed.
 
 ## Courses
 /courses
 
-* Lists all courses as a set of tiles, add a New Course tile.
-* Clicking on a tile opens corresponding the Course Detail page. 
+* Lists all courses as a set of tiles plus a New Course tile.
+* Clicking a tile opens corresponding the Course Detail page. 
 * Clicking the New Course tile opens the Create Course page.
 
 ## CourseDetail
 /courses/:id
 
-* If the course id in the URL is not a valid course id the app redirects to the Not Found page.
-* Displays the course title, description, time and materials
-* The course description and materials fields are displayed using the markdown format. For example, lines beginning with a \*, - or + are are displayed as an unordered list. Lines separated by two new-line characters are displayed with blank line between them. 
+* Displays the title, owner, description, time and materials for the course specified by id in the URL.
+* The course description and materials fields are displayed using the markdown format. For example, lines beginning with a \* are displayed as an unordered list. Two new-line characters starts a new paragraph. 
 * Buttons to edit and delete the course are displayed if the current login created the course.
 * The Return to List button redirects to the courses pages.
 * Delete button calls the function to delete the course. If successful the app redirects to courses list page, otherwise to an error page.
+* If the course id in the URL is not a valid course id the app redirects to the Not Found page.
 
 ## CreateCourse
 /courses/create
@@ -93,23 +95,23 @@ redirects to /courses
 * Displays a form to enter course data. The Create Course button submits the course data.
 * If the course is created the app redirects to the course list
 * If the course is not created due to validation errors the errors are displayed.
-* Uses the current login for name and id of the course owner.
+* Uses the current login for name and id as the course owner.
 * The Cancel button returns to courses page.
 
 ## UpdateCourse
 /courses/:id/update
 
-* The user is directed to the page from the course detail page Update Course button.
-* If a user enters the URL in the browser and there is no current login the app redirects to sign-in page which returns to update course when login is successful.
-* If the course id in the URL is not a valid course id the app redirects to the Not Found page.
-* If the course owner is not the current login the app redirects to the Forbidden page.
-* Displays the course data in a form for editing. The Update Course button submits the update.
-* If the update is successful the app redirect to the course detail page.
+* The user is directed to the page from the course detail page by the Update Course button.
+* Displays the course title, description, time and materials in a form for editing. The Update Course button submits the update.
+* If the update is successful the app redirects to the course detail page.
 * If the course is not updated due to validation errors the errors are displayed.
-* Uses the current login for user name and id associated with course.
 * The Cancel button returns to course detail page.
+* If a user enters the URL in the browser:
+  * and if there is no current login the app redirects to sign-in page which returns to update course when login is successful.
+  * or if the course owner is not the current login the app redirects to the Forbidden page.
+  * or if the course id in the URL is not a valid course id the app redirects to the Not Found page.
 
-# Client / Front-end Project Structure
+# Application Front-end Directory Structure
 /client directory
 
 ## Primary Packages
@@ -119,40 +121,53 @@ redirects to /courses
 * react-markdown
 * react-router-dom
 
-## File Structure
+## Files and Directories
 
-** Primary Files **
-\public: static files, such as favicon
-\src: primary folder for web application front-end.
-\page_design_docs: guidelines for page layout files from initial project download
-README.md: file autogenerated by npm containing npm commands (not this file)
+**Primary Files and Directories**
+* \public - static files, such as favicon
+* \src - primary folder for web application front-end.
+* \page_design_docs - guidelines for page layout files from initial project download
+* README.md - file autogenerated by npm containing npm commands (not this file)
 
 ### src sub-directory
-* App.js:  top-level of application logic, containing routes
-* config.js: base URL for REST APIs
-* Context.js: Higher-order component which wraps other components for sharing methods.
-* global.css: css for application
-* index.js: root-level of application
+* App.js - top-level of application logic, containing routes
+* config.js - base URL for REST APIs
+* Context.js - Higher-order component for sharing methods and user authentication.
+* global.css - css for application
+* index.js - root-level of application
 
 
-* Primary page rendering files: CourseDetail, CreateCourse, Header, UpdateCourse, UserSignIn, UserSignUp.
-* Supporting logic: PrivateRoute, UserSignOut
-* Error message pages: Forbidden, NotFound, UnhandledError
+* __Primary page rendering files__
+  * CourseDetail
+  * CreateCourse
+  * Header
+  * UpdateCourse
+  * UserSignIn
+  * UserSignUp.
+* __Supporting logic__
+  * PrivateRoute
+  * UserSignOut
+* __Error message pages__
+  * Forbidden
+  * NotFound
+  * UnhandledError
 
 
 ## Comments on code organization
 
 * Context.js contains the functions which call the REST APIs and return the response.
 * The Courses, CourseDetail, CreateCourse, UpdateCourse components call the relevant function in Context that get, create, update or delete a course(s). They check the API response and render the data returned, or based on the status code redirect to the Not Found, Forbidden or Error (unhandled status) pages.
-* The UserSignIn, UserSignUp components call the relavent function in Context to authenticate a signin or create a user. Based on the status code the app displays any error messages, or redirects as appropriate if login is successful.
-* The REST API performs the primary error checking on data for creating a user or course, or updating a course. Errors messages regarding specific fields are included in the HTTP response along with a 4xx code, which the page displays for the user to resolve.
+* The UserSignIn, UserSignUp components call the relavent function in Context to authenticate a signin or create a user. Based on the status code the app redirects if login is successful, or displays an error messages.
+* The REST API performs the primary data validation checks for creating a user or course, or updating a course. Errors messages regarding specific fields are included in the HTTP response along with a 4xx code.RESE
 
 
-# API Routes
+# REST API Service
 
 **User Authentication**
 
 Some routes require user authenication which expect the request has an Authorization header of type Basic Auth with the user email and plaintext password. (Unencrypted passwords for the seed users can be found in /seed/data.json.) Authenication failures return status 401 with a body containing the message "Access Denied" and a warning to the console (ex: "basic auth expected", "user not found").
+
+## Routes
 
 **GET /** (root)
 
@@ -250,17 +265,17 @@ Delete a course
   * Status 400 is returned
   * Response body contains an array named "errors" containing strings describing the validation errors
 
-# RESET API Service Structure
+# Directory Structure
 \api directory
 
 ## Primary packages
 
-* react: frontend web page handler
+* react: front-end web page handler
 * sqlite: database
 * sequelize: database ORM
 * express: backend route handler
 
-## File structure
+## Files and Directories
 
 **Primary files**
 * app.js: main script
