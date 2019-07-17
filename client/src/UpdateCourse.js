@@ -120,7 +120,7 @@ class UpdateCourse extends Component {
                         id="estimatedTime"
                         name="estimatedTime"
                         type="text"
-                        value={estimatedTime}
+                        value={estimatedTime || ''}
                         placeholder="Hours"
                         onChange={this.changeTextInput}
                       />
@@ -133,7 +133,7 @@ class UpdateCourse extends Component {
                       <textarea
                         id="materialsNeeded"
                         name="materialsNeeded"
-                        value={materialsNeeded}
+                        value={materialsNeeded || ''}
                         placeholder="List materials..."
                         onChange={this.changeTextInput} >
                       </textarea>
