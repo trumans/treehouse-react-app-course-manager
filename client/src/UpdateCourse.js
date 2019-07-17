@@ -146,6 +146,8 @@ class UpdateCourse extends Component {
 
             <div className="grid-100 pad-bottom">
 
+              <p>The course description and materials needed fields support markdown formating</p>
+
               <button
                 className="button"
                 type="submit"
@@ -155,6 +157,7 @@ class UpdateCourse extends Component {
                 className="button button-secondary"
                 to={`/courses/${id}`}
               >Cancel</Link>
+
             </div>
 
           </form>
