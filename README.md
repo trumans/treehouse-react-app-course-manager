@@ -71,6 +71,12 @@ Lists all courses by redirecting to /courses
   * If authentication is successful the page header is updated with the user name. If the sign-in was initiated from the header Sign In link the app redirects to the home page. If initiated by the Create Course or Update Course page, which requires authentication, the app redirects back to that page.
   * If authentication fails an error message is displayed.
 
+## User Sign Out
+/signout
+
+* The user is redirected to this page by the Sign Out link in the page header.
+* The app clears the current login, redirects to the home page, and updates page header.
+
 ## Courses
 /courses
 
@@ -110,6 +116,10 @@ Lists all courses by redirecting to /courses
   * and if there is no current login the app redirects to sign-in page which returns to update course when login is successful,
   * or if the course owner is not the current login the app redirects to the Forbidden page,
   * or if the course id in the URL is not a valid course id the app redirects to the Not Found page.
+
+
+## Delete Course
+There is no route or page for deleting a course. The deletion functionality is called from the Course Detail page.
 
 # Application Front-End Directory Structure
 /client directory
