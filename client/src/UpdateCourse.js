@@ -146,7 +146,7 @@ class UpdateCourse extends Component {
 
             <div className="grid-100 pad-bottom">
 
-              <p>The course description and materials needed fields support markdown formating</p>
+              <p>The Course Description and Materials Needed fields support markdown formating</p>
 
               <button
                 className="button"

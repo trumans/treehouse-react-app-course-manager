@@ -124,6 +124,8 @@ class CreateCourse extends Component {
 
             <div className="grid-100 pad-bottom">
 
+              <p>The Course Description and Materials Needed fields support markdown formating</p>
+
               <button
                 className="button"
                 type="submit"
