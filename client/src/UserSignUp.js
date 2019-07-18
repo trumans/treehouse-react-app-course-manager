@@ -22,8 +22,8 @@ class UserSignUp extends Component {
   //   otherwise display error messages
   submitForm = (event) => {
     event.preventDefault();
-    const { actions } = this.props.context;
-    const { history } = this.props;
+    const { history, context } = this.props;
+    const { actions } = context;
     const { firstName, lastName, emailAddress, password, confirmPassword }
       = this.state;
     const user = { firstName, lastName, emailAddress, password, confirmPassword }
@@ -32,6 +32,7 @@ class UserSignUp extends Component {
       .then(async (response) => {
         if (response.status === 201) {
           await actions.signIn({name: emailAddress, password: password});
+          context.authenticatedUser = await actions.getAuthCookie();
           history.push('/');
         } else if (response.status === 400 ) {
           response.json().then ((errors) => { this.setState(errors) });
